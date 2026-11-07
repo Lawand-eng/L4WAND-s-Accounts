@@ -8,24 +8,42 @@
 <meta property="og:title" content="LAWAND'S ACCOUNTS ♟️">
 <meta property="og:description" content="سیستەمی خۆرینی سێ-ڕەهەندی — کرتە لەسەر هەسارەکان بکە بۆ سەردانیکردنی هەموو ئەکاونتەکانم">
 <meta property="og:type" content="website">
-<!-- ئەم وێنەیە بگۆڕە بۆ لینکی وێنەیەکی ڕاستەقینەی 1200x630px کە خۆت لەسەر ئینتەرنێت ئەپلۆدی دەکەیت (بۆ نموونە لە GitHub یان Imgur)، بۆ ئەوەی کاتێک لینکەکە دەنێردرێت وێنەکە دەربکەوێت -->
-<meta property="og:image" content="">
+<meta property="og:url" content="https://sigmadev.uk/">
+<meta property="og:image" content="https://sigmadev.uk/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LAWAND'S ACCOUNTS - سیستەمی خۆرینی سێ-ڕەهەندی">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="LAWAND'S ACCOUNTS ♟️">
 <meta name="twitter:description" content="سیستەمی خۆرینی سێ-ڕەهەندی — کرتە لەسەر هەسارەکان بکە بۆ سەردانیکردنی هەموو ئەکاونتەکانم">
+<meta name="twitter:image" content="https://sigmadev.uk/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23000015'/%3E%3Ccircle cx='50' cy='50' r='16' fill='%23ffdd55'/%3E%3Ccircle cx='80' cy='50' r='5' fill='%233fa9f5'/%3E%3Ccircle cx='20' cy='38' r='3.5' fill='%23e3a465'/%3E%3Ccircle cx='30' cy='75' r='3' fill='%238fe8e0'/%3E%3C/svg%3E">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
   html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
     background: radial-gradient(circle at 50% 50%, #0a0e2a, #000000 80%);
-    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  button, input, select, textarea, .btn, .title, .hint, #secretMessage, #planetTooltip, #exitFocusBtn, .modal-box {
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   }
   canvas {
     display: block;
+    width: 100%;
+    height: 100%;
     touch-action: none;
+    -webkit-tap-highlight-color: transparent;
   }
   .title {
     position: fixed;
@@ -61,25 +79,58 @@
     z-index: 6;
   }
   @media (max-width: 700px) {
-    .title { font-size: 15px; top: 14px; max-width: 60%; line-height: 1.3; }
-    .hint { font-size: 10px; line-height: 1.35; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+    .title {
+      top: max(14px, env(safe-area-inset-top));
+      left: max(12px, env(safe-area-inset-left));
+      transform: none;
+      font-size: 13px;
+      max-width: 44%;
+      text-align: left;
+      line-height: 1.25;
+      letter-spacing: .6px;
+      opacity: .88;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hint {
+      bottom: max(12px, env(safe-area-inset-bottom));
+      font-size: 10px;
+      line-height: 1.35;
+      max-width: 88%;
+      opacity: .55;
+    }
     .controls {
-      top: 12px;
-      right: 10px;
-      gap: 6px;
+      top: max(10px, env(safe-area-inset-top));
+      right: max(10px, env(safe-area-inset-right));
+      gap: 5px;
     }
     .btn {
       font-size: 10px;
       padding: 0;
-      width: 34px;
-      height: 34px;
+      width: 33px;
+      height: 33px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
+      background: rgba(8,12,35,.82);
     }
     .btn svg { margin: 0 !important; }
     .btn span { display: none; }
+  }
+
+  @media (max-width: 420px) {
+    .title { font-size: 11.5px; max-width: 38%; }
+    .hint { font-size: 9px; max-width: 84%; }
+    .controls { gap: 4px; }
+    .btn { width: 30px; height: 30px; }
   }
   .btn {
     color: rgba(255,255,255,0.6);
@@ -94,6 +145,192 @@
   }
   .btn:hover {
     background: rgba(255,255,255,0.1);
+  }
+
+  /* مۆداڵی لیستی خێرا (Quick Links Drawer) */
+  #linksModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(3, 6, 20, 0.86);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.28s ease, visibility 0s linear 0.28s;
+    padding: 16px;
+  }
+  #linksModal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.28s ease, visibility 0s;
+  }
+  .modal-box {
+    background: rgba(12, 17, 43, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(63, 169, 245, 0.18);
+    transform: translateY(22px) scale(0.96);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #linksModal.active .modal-box {
+    transform: translateY(0) scale(1);
+  }
+  .modal-top {
+    padding: 18px 20px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .profile-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .profile-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffdd55, #1b3a8f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 14px rgba(255, 221, 85, 0.4);
+  }
+  .profile-meta h3 {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .profile-meta p {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .modal-close {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.7);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+  .modal-content {
+    padding: 14px 18px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .modal-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .modal-link-item:hover {
+    background: rgba(255, 255, 255, 0.11);
+    border-color: rgba(255, 221, 85, 0.4);
+    transform: translateX(-3px);
+  }
+  .link-info-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .link-dot {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px currentColor;
+  }
+  .link-texts {
+    display: flex;
+    flex-direction: column;
+  }
+  .link-label-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .link-sub-desc {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+  .link-arrow {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .modal-bottom {
+    padding: 12px 18px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .copy-btn {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 221, 85, 0.12);
+    border: 1px solid rgba(255, 221, 85, 0.35);
+    border-radius: 10px;
+    color: #ffdd55;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .copy-btn:hover {
+    background: rgba(255, 221, 85, 0.22);
+  }
+  #toastMsg {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(40px);
+    background: rgba(10, 16, 45, 0.95);
+    border: 1px solid rgba(255, 221, 85, 0.5);
+    color: #fff;
+    padding: 9px 20px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 90;
+  }
+  #toastMsg.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
   }
   #loadingScreen {
     position: fixed;
@@ -123,23 +360,6 @@
   @keyframes loadingSpin {
     to { transform: rotate(360deg); }
   }
-
-  /* تەنها بۆ مۆبایل — Desktop بە هیچ شێوەیەک ناگۆڕێت */
-  @media (max-width: 700px) {
-    .title { top: 12px; font-size: 13px; max-width: 55vw; line-height: 1.25; }
-    .hint { bottom: 10px; font-size: 9px; line-height: 1.35; max-width: 88vw; opacity: .55; }
-    .controls { top: 10px; right: 8px; gap: 5px; }
-    .btn { width: 34px; height: 34px; padding: 0; border-radius: 50%; display:flex; align-items:center; justify-content:center; font-size:0; background:rgba(255,255,255,.07); }
-    .btn span { display:none; }
-    .btn svg { margin:0 !important; }
-    #planetTooltip { font-size:11px !important; }
-  }
-  @media (max-width: 380px) {
-    .title { font-size:12px; }
-    .controls { right:6px; gap:4px; }
-    .btn { width:31px; height:31px; }
-    .btn svg { width:15px; height:15px; }
-  }
 </style>
 </head>
 <body>
@@ -151,9 +371,11 @@
 <div class="title">LAWAND'S ACCOUNTS ♟️</div>
 <div class="hint">کلیک لەسەر هەسارەکان بکە بۆ سەردانیکردنی ئەکاونتەکانم • دەفرەکە ڕابکێشە و ڕایوەشێنە بۆ تەقاندنەوەی • ڕابکێشە بۆ سووراندنی کامێرا • سکڕۆڵ بکە بۆ زووم • دوگمەی دەنگ چالاک بکە بۆ گوێگرتنی موزیکی ambient</div>
 <div class="controls">
+  <div class="btn" id="listBtn" title="لیستی ئەکاونتەکان"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg><span>ئەکاونتەکان</span></div>
+  <div class="btn" id="shareBtn" title="شەیرکردن"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg><span>شەیر</span></div>
   <div class="btn" id="soundBtn" title="دەنگ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><span id="soundBtnLabel">دەنگ: ناچالاک</span></div>
   <div class="btn" id="speedBtn" title="خێرایی"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="speedBtnLabel">خێرایی: ١x</span></div>
-  <div class="btn" id="resetBtn" title="ڕیسێت کامێرا"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-5h5"/></svg><span>ڕیسێت کامێرا</span></div>
+  <div class="btn" id="resetBtn" title="ڕیسێت کامێرا"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-5h5"/></svg><span>ڕیسێت</span></div>
 </div>
 <div id="planetTooltip" style="position:fixed;pointer-events:none;background:rgba(10,14,42,0.9);color:#fff;font-size:12px;padding:5px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.15);opacity:0;transform:translate(-50%,-130%);transition:opacity 0.15s;z-index:10;white-space:nowrap;"></div>
 <div id="exitFocusBtn" style="position:fixed;bottom:64px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.85);font-size:13px;background:rgba(20,24,52,0.75);padding:9px 18px;border-radius:20px;border:1px solid rgba(255,255,255,0.2);cursor:pointer;user-select:none;opacity:0;pointer-events:none;transition:opacity 0.25s;z-index:11;white-space:nowrap;">↺ گەڕانەوە بۆ دیمەنی گشتی</div>
@@ -161,25 +383,64 @@
 <div id="secretMessage" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);color:#fff8e0;font-size:22px;font-weight:bold;text-align:center;text-shadow:0 0 18px rgba(255,200,80,0.9),0 0 34px rgba(255,150,40,0.6);opacity:0;pointer-events:none;transition:opacity 0.5s ease, transform 0.5s ease;z-index:16;max-width:88%;letter-spacing:0.5px;">🌟 نهێنیت دۆزییەوە! سوپاس بۆ گەڕانت بەدوای ئەستێرەکاندا 🌟</div>
 <div id="introFade" style="position:fixed;inset:0;background:#000;pointer-events:none;z-index:20;opacity:1;"></div>
 
+<!-- مۆداڵی لیستی خێرای ئەکاونتەکان -->
+<div id="linksModal">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-top">
+      <div class="profile-wrap">
+        <div class="profile-badge">♟️</div>
+        <div class="profile-meta">
+          <h3>لاوەند کامەران</h3>
+          <p>پەرەپێدەر • شەتڕەنج • گەردوونناسی</p>
+        </div>
+      </div>
+      <button class="modal-close" id="closeModalBtn" title="داخستن">&times;</button>
+    </div>
+    <div class="modal-content" id="modalLinksContainer"></div>
+    <div class="modal-bottom">
+      <button class="copy-btn" id="copyLinkBtn">🔗 کۆپیکردنی لینکی پەڕە</button>
+    </div>
+  </div>
+</div>
+<div id="toastMsg">بەستەرەکە بە سەرکەوتوویی کۆپی کرا! ✨</div>
+
 <script>
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const planetTooltip = document.getElementById('planetTooltip');
 let W, H, cx, cy;
 let labelFontScale = 1;
+let sceneScale = 1;
+
+const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (window.matchMedia && window.matchMedia('(max-width: 700px)').matches);
+let dprCap = IS_MOBILE ? 1.5 : 1.75;   // سنووری چڕی پیکسڵ بۆ خێرایی
+let perfLevel = 0;                      // ٠ = کوالێتی تەواو، ١ = نزم، ٢ = زۆر نزم (خۆکار)
+let nebulaDirty = true;
+let nebulaCanvas = null;
+let camCosA = 1, camSinA = 0, camCosE = 1, camSinE = 0;
 
 function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
+  W = window.innerWidth;
+  H = window.innerHeight;
+  const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, dprCap));
+  nebulaDirty = true;
+  canvas.width = Math.round(W * dpr);
+  canvas.height = Math.round(H * dpr);
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   cx = W / 2;
   cy = H / 2;
-  labelFontScale = W < 700 ? 1.0 : 1;
+  const mobile = W <= 700;
+  // پانتایی فراوانکراو بۆ هەسارەکان تا لە یەکتری دووربن و بە جوانی لە شاشەکەدا دەربکەون
+  sceneScale = mobile ? Math.min(1, (Math.min(W, H) * 0.44) / 560) : Math.min(1, (Math.min(W, H) * 0.46) / 520);
+  labelFontScale = mobile ? (W <= 420 ? 0.92 : 1.0) : 1;
 }
 resize();
 window.addEventListener('resize', resize);
 
 // خۆر
-const sun = { radius: 32, color: '#ffdd55', link: null, name: 'دەستی پێدا مەنێ' };
+const sun = { radius: 32, color: '#ffdd55', link: 'https://sigmadev.uk/6929813523', name: 'دەستی پێدا مەنێ' };
 
 /* ---------------- ئیستەر ئێگ: ٣ کرتەی دووبارە لەسەر خۆر ---------------- */
 let sunClickTimes = [];
@@ -252,10 +513,7 @@ function updateAndDrawSupernova() {
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r * fade + 0.6, 0, Math.PI * 2);
     ctx.fillStyle = `rgba(${p.color},${fade})`;
-    ctx.shadowColor = `rgba(${p.color},0.8)`;
-    ctx.shadowBlur = 10;
     ctx.fill();
-    ctx.shadowBlur = 0;
   }
   if (!stillAlive) supernovaActive = false;
 }
@@ -280,14 +538,14 @@ function shadeColor(hex, percent) {
 }
 
 const planets = [
-  { orbit: 75,  radius: 8,  color: '#a89f96', color2: '#5c534a', speed: 0.028, angle: Math.random() * 6.28, name: 'عەتارد', link: 'https://www.facebook.com/lawand.kamaran.37', label: 'Facebook' },
-  { orbit: 120, radius: 12, color: '#f3d27a', color2: '#a8672a', speed: 0.020, angle: Math.random() * 6.28, name: 'زوهڕە', link: 'https://www.tiktok.com/@l4_1a?is_from_webapp=1&sender_device=pc', label: 'Tiktok' },
-  { orbit: 170, radius: 13, color: '#3fa9f5', color2: '#1b3a8f', speed: 0.016, angle: Math.random() * 6.28, name: 'زەوی', earthLike: true, link: 'https://www.instagram.com/l4wand_kamaran/', label: 'Instagram' },
-  { orbit: 225, radius: 9,  color: '#e8794f', color2: '#8a2f11', speed: 0.013, angle: Math.random() * 6.28, name: 'مریخ', dustStorm: true, link: 'https://t.me/l4wand', label: 'Telegram' },
-  { orbit: 290, radius: 26, color: '#e3a465', color2: '#8a4a1e', speed: 0.008, angle: Math.random() * 6.28, name: 'موشتەری', bands: true, link: 'https://pin.it/1U6rTEvG2', label: 'Pinterest' },
-  { orbit: 365, radius: 22, color: '#f0dcae', color2: '#a3823f', speed: 0.006, angle: Math.random() * 6.28, name: 'زوحەل', ring: true, link: 'https://www.chess.com/member/lawandkamara', label: 'Chess.com' },
-  { orbit: 445, radius: 16, color: '#8fe8e0', color2: '#2c7d8a', speed: 0.004, angle: Math.random() * 6.28, name: 'ئۆرانۆس', link: 'https://github.com/Lawand-eng', label: 'GitHub' },
-  { orbit: 525, radius: 16, color: '#5b7fe0', color2: '#1c2c78', speed: 0.003, angle: Math.random() * 6.28, name: 'نپتون', link: 'https://discord.com/users/es7abxor', label: 'Discord' },
+  { orbit: 85,  radius: 12, color: '#beb4aa', color2: '#574d46', speed: 0.028, angle: Math.random() * 6.28, name: 'عەتارد', link: 'https://www.facebook.com/lawand.kamaran.37', label: 'Facebook', glowColor: 'rgba(215,205,195,0.3)', craters: true },
+  { orbit: 135, radius: 16, color: '#f8dba1', color2: '#9a6023', speed: 0.020, angle: Math.random() * 6.28, name: 'زوهڕە', link: 'https://www.tiktok.com/@l4_1a?is_from_webapp=1&sender_device=pc', label: 'Tiktok', glowColor: 'rgba(255,220,140,0.38)', venusClouds: true },
+  { orbit: 195, radius: 18, color: '#38a2f5', color2: '#12306d', speed: 0.016, angle: Math.random() * 6.28, name: 'زەوی', earthLike: true, link: 'https://www.instagram.com/l4wand_kamaran/', label: 'Instagram', glowColor: 'rgba(65,175,255,0.52)' },
+  { orbit: 255, radius: 14, color: '#e86a43', color2: '#75250c', speed: 0.013, angle: Math.random() * 6.28, name: 'مریخ', dustStorm: true, marsPoles: true, link: 'https://t.me/l4wand', label: 'Telegram', glowColor: 'rgba(255,110,60,0.42)' },
+  { orbit: 330, radius: 32, color: '#e09f60', color2: '#733714', speed: 0.008, angle: Math.random() * 6.28, name: 'موشتەری', bands: true, redSpot: true, link: 'https://pin.it/1U6rTEvG2', label: 'Pinterest', glowColor: 'rgba(255,185,115,0.35)' },
+  { orbit: 415, radius: 26, color: '#f2dea7', color2: '#8f6f2e', speed: 0.006, angle: Math.random() * 6.28, name: 'زوحەل', ring: true, link: 'https://www.chess.com/member/lawandkamara', label: 'Chess.com', glowColor: 'rgba(245,225,170,0.35)' },
+  { orbit: 490, radius: 20, color: '#88eae0', color2: '#206b78', speed: 0.004, angle: Math.random() * 6.28, name: 'ئۆرانۆس', uranusRings: true, link: 'https://github.com/Lawand-eng', label: 'GitHub', glowColor: 'rgba(125,240,230,0.42)' },
+  { orbit: 560, radius: 20, color: '#4d75e3', color2: '#121f5c', speed: 0.003, angle: Math.random() * 6.28, name: 'نپتون', neptuneStorm: true, link: 'https://discord.com/users/es7abxor', label: 'Discord', glowColor: 'rgba(75,120,255,0.48)' },
 ];
 
 /* ---------------- تەکەکانی بەرد لەتەنیشت هەسارەکان ---------------- */
@@ -306,7 +564,7 @@ const rockColors = ['#8a8578', '#9c9384', '#726d63', '#a89e8c'];
 
 planets.forEach(p => {
   p.trail = [];
-  const rockCount = 1 + Math.floor(Math.random() * 2);
+  const rockCount = p.name === 'زەوی' ? 0 : 1 + Math.floor(Math.random() * 2);
   p.rocks = [];
   for (let i = 0; i < rockCount; i++) {
     const size = p.radius * (0.22 + Math.random() * 0.16);
@@ -323,20 +581,28 @@ planets.forEach(p => {
   }
 });
 
-// دروستکردنی هەسارەی دەستکرد (satellite) بۆ زەوی
+// دروستکردنی مانگ (Moon) و هەسارەی دەستکرد (satellite) بۆ زەوی
 const earthPlanet = planets.find(p => p.name === 'زەوی');
 if (earthPlanet) {
-  earthPlanet.satellite = {
-    orbitR: earthPlanet.radius * 3.4,
+  // مانگی سروشتی (Moon)
+  earthPlanet.moon = {
+    orbitR: earthPlanet.radius * 2.6,
+    radius: earthPlanet.radius * 0.32,
     angle: Math.random() * Math.PI * 2,
-    speed: 0.014,
+    speed: 0.02
+  };
+  // هەسارەی دەستکرد (سەتەلایت)
+  earthPlanet.satellite = {
+    orbitR: earthPlanet.radius * 3.8,
+    angle: Math.random() * Math.PI * 2,
+    speed: 0.035,
     rot: 0
   };
 }
 
 // ئەستێرەکان بۆ باکگراوند (دوورترین چین، بێ کاریگەری کامێرا)
 const stars = [];
-for (let i = 0; i < 220; i++) {
+for (let i = 0; i < (IS_MOBILE ? 120 : 200); i++) {
   stars.push({
     x: Math.random() * 2000 - 1000,
     y: Math.random() * 2000 - 1000,
@@ -355,20 +621,29 @@ const nebulaBlobs = [
 ];
 
 function drawNebula() {
-  ctx.save();
-  nebulaBlobs.forEach(b => {
-    const bx = cx + b.x * W;
-    const by = cy + b.y * H;
-    const br = b.r * Math.max(W, H);
-    const g = ctx.createRadialGradient(bx, by, 0, bx, by, br);
-    g.addColorStop(0, b.color);
-    g.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.beginPath();
-    ctx.arc(bx, by, br, 0, Math.PI * 2);
-    ctx.fillStyle = g;
-    ctx.fill();
-  });
-  ctx.restore();
+  // نیبیۆلا تەنیا یەکجار دەکێشرێت بۆ canvasێکی شاراوە، پاشان هەر فرەیمێک تەنیا کۆپی دەکرێت
+  if (nebulaDirty || !nebulaCanvas) {
+    nebulaDirty = false;
+    if (!nebulaCanvas) nebulaCanvas = document.createElement('canvas');
+    const sc = 0.5;
+    nebulaCanvas.width = Math.max(2, Math.round(W * sc));
+    nebulaCanvas.height = Math.max(2, Math.round(H * sc));
+    const n = nebulaCanvas.getContext('2d');
+    n.scale(sc, sc);
+    nebulaBlobs.forEach(b => {
+      const bx = cx + b.x * W;
+      const by = cy + b.y * H;
+      const br = b.r * Math.max(W, H);
+      const g = n.createRadialGradient(bx, by, 0, bx, by, br);
+      g.addColorStop(0, b.color);
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      n.beginPath();
+      n.arc(bx, by, br, 0, Math.PI * 2);
+      n.fillStyle = g;
+      n.fill();
+    });
+  }
+  ctx.drawImage(nebulaCanvas, 0, 0, W, H);
 }
 
 /* ---------------- دۆزینەوەی مۆبایل (بۆ کەمکردنەوەی کاریگەرییەکان و باشترکردنی خێرایی) ---------------- */
@@ -376,7 +651,7 @@ const isMobileDevice = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAge
 
 /* ---------------- تۆزی ئاسمانی (drifting space dust) ---------------- */
 const spaceDust = [];
-const DUST_COUNT = isMobileDevice ? 25 : 70;
+const DUST_COUNT = isMobileDevice ? 10 : 40;
 for (let i = 0; i < DUST_COUNT; i++) {
   spaceDust.push({
     x: Math.random() * 2000 - 1000,
@@ -389,17 +664,18 @@ for (let i = 0; i < DUST_COUNT; i++) {
 }
 
 function drawSpaceDust() {
+  if (perfLevel >= 2) return;
   ctx.save();
+  ctx.fillStyle = '#c8d2ff';
   spaceDust.forEach(d => {
     d.x += d.vx * speedMultiplier;
     d.y += d.vy * speedMultiplier;
     if (d.x > 1000) d.x = -1000; if (d.x < -1000) d.x = 1000;
     if (d.y > 1000) d.y = -1000; if (d.y < -1000) d.y = 1000;
     const alpha = 0.12 + 0.1 * Math.sin(time * 0.008 + d.phase);
-    ctx.beginPath();
-    ctx.arc(cx + d.x, cy + d.y, d.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(200,210,255,${Math.max(alpha, 0.03)})`;
-    ctx.fill();
+    ctx.globalAlpha = Math.max(alpha, 0.03);
+    const sz = d.r * 2;
+    ctx.fillRect(cx + d.x - d.r, cy + d.y - d.r, sz, sz);
   });
   ctx.restore();
 }
@@ -422,7 +698,7 @@ function spawnComet() {
   });
 }
 
-const COMET_SPAWN_CHANCE = isMobileDevice ? 0.0004 : 0.0009;
+const COMET_SPAWN_CHANCE = isMobileDevice ? 0.0002 : 0.0009;
 function updateComets() {
   if (Math.random() < COMET_SPAWN_CHANCE && comets.length === 0) spawnComet();
   for (let i = comets.length - 1; i >= 0; i--) {
@@ -454,10 +730,7 @@ function drawComets() {
     ctx.beginPath();
     ctx.arc(c.x, c.y, 2.6, 0, Math.PI * 2);
     ctx.fillStyle = 'rgba(255,255,255,0.95)';
-    ctx.shadowColor = 'rgba(190,230,255,0.9)';
-    ctx.shadowBlur = 12;
     ctx.fill();
-    ctx.shadowBlur = 0;
     ctx.restore();
   });
 }
@@ -479,7 +752,7 @@ function spawnMeteor() {
   });
 }
 
-const METEOR_SPAWN_CHANCE = isMobileDevice ? 0.005 : 0.012;
+const METEOR_SPAWN_CHANCE = isMobileDevice ? 0.0025 : 0.012;
 function updateMeteors() {
   if (Math.random() < METEOR_SPAWN_CHANCE) spawnMeteor();
   for (let i = meteors.length - 1; i >= 0; i--) {
@@ -574,8 +847,6 @@ function drawAstronaut() {
   }
   ctx.stroke();
 
-  ctx.shadowColor = 'rgba(255,255,255,0.25)';
-  ctx.shadowBlur = 14;
 
   // ------- باکپاک (PLSS) لە پشتەوە -------
   const packGrad = ctx.createLinearGradient(-s * 0.34, 0, -s * 0.08, 0);
@@ -592,8 +863,6 @@ function drawAstronaut() {
   ctx.moveTo(-s * 0.29, s * 0.16);
   ctx.lineTo(-s * 0.10, s * 0.16);
   ctx.stroke();
-
-  ctx.shadowBlur = 10;
 
   // ------- قاچەکان (پشتی وردترین چین) -------
   const legGrad = ctx.createLinearGradient(-s * 0.24, 0, s * 0.24, 0);
@@ -934,15 +1203,15 @@ function drawUFO() {
   ctx.translate(ux, uy + bob);
   ctx.rotate(tilt);
 
-  if (ufoHeld) {
-    // تیشکی ئاگرین دەبات بۆ سوور کاتێک لەرزە زیاتر دەبێت (نیشانەی نزیک بوونەوە لە تەقینەوە)
-    const r = Math.floor(150 + 105 * ufoShakeIntensity);
-    const g = Math.floor(255 - 175 * ufoShakeIntensity);
-    ctx.shadowColor = `rgba(${r},${g},120,0.6)`;
-    ctx.shadowBlur = 16 + ufoShakeIntensity * 26;
-  } else {
-    ctx.shadowColor = 'rgba(150,255,190,0.35)';
-    ctx.shadowBlur = 16;
+  {
+    // هەڵقۆزی نەرم لە جیاتی shadowBlur (زۆر خێراتر)؛ کاتێک بگیردرێت بەرەو سوور دەچێت
+    const hr = ufoHeld ? Math.floor(150 + 105 * ufoShakeIntensity) : 150;
+    const hg = ufoHeld ? Math.floor(255 - 175 * ufoShakeIntensity) : 255;
+    const ha = ufoHeld ? 0.16 + ufoShakeIntensity * 0.22 : 0.09;
+    ctx.beginPath();
+    ctx.arc(0, s * 0.1, s * 1.5, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${hr},${hg},150,${ha})`;
+    ctx.fill();
   }
 
   // تیشکی ژێری بشقاوەکە
@@ -1010,9 +1279,9 @@ function drawUFO() {
 /* ---------------- کامێرای سێ-ڕەهەندی ---------------- */
 let camAzimuth = -0.5;   // سوڕانەوە بە دەوری تەوەری Y (چەپ/ڕاست)
 let camElevation = 0.45; // سوڕانەوە بە دەوری تەوەری X (سەرەوە/خوارەوە)
-const MOBILE_VIEW = window.matchMedia && window.matchMedia('(max-width: 700px)').matches;
-const DEFAULT_ZOOM = MOBILE_VIEW ? Math.min(1, (Math.min(window.innerWidth, window.innerHeight) * 0.40) / 350) : 1;
-let baseZoom = DEFAULT_ZOOM;  // زوومی سەرەتایی بۆ مۆبایل کەمترە، Desktop هەمانە
+let baseZoom = 1;  // ئەو زووم-ەی بەکارهێنەر بە سکڕۆڵ/پینچ کۆنترۆڵی دەکات
+// لە مۆبایلدا سیستەمەکە بە شێوەیەکی گونجاوتر دەست پێ دەکات
+if (window.matchMedia && window.matchMedia('(max-width: 700px)').matches) baseZoom = 1.08;
 let zoom = 1;       // زووم-ی کۆتایی کە لە پرۆژێکشندا بەکاردێت (باسزووم × کاریگەری کامێرا)
 const ZOOM_MIN = 0.35, ZOOM_MAX = 3.2;
 
@@ -1087,19 +1356,23 @@ function trapezoidEase(t) {
 
 // سوڕاندنی خاوی خاڵێک بەبێ زووم/پان (بۆ دیاریکردنی شوێنی هەسارە پێش زووم)
 function rotateOnly(x, y, z) {
-  let x1 = x * Math.cos(renderAzimuth) - z * Math.sin(renderAzimuth);
-  let z1 = x * Math.sin(renderAzimuth) + z * Math.cos(renderAzimuth);
-  let y1 = y;
-  let y2 = y1 * Math.cos(renderElevation) - z1 * Math.sin(renderElevation);
-  let z2 = y1 * Math.sin(renderElevation) + z1 * Math.cos(renderElevation);
+  const x1 = x * camCosA - z * camSinA;
+  const z1 = x * camSinA + z * camCosA;
+  const y2 = y * camCosE - z1 * camSinE;
+  const z2 = y * camSinE + z1 * camCosE;
   return { x2: x1, y2, z2 };
+}
+
+function updateCamTrig() {
+  camCosA = Math.cos(renderAzimuth); camSinA = Math.sin(renderAzimuth);
+  camCosE = Math.cos(renderElevation); camSinE = Math.sin(renderElevation);
 }
 
 function cameraZoomPunch(planet) {
   const pt = orbitPoint(planet.orbit, planet.angle);
   const local = rotateOnly(pt.x, pt.y, pt.z);
   // هەسارە دوورەکان (ئۆربیتی گەورەتر) زووم زیاترتر وەردەگرن تاکو هەموو جار هەست بە "چوونەژوورەوە"ی وردبین بکرێت
-  const punchAmt = Math.min(1.5, 0.5 + planet.orbit / 260);
+  const punchAmt = Math.min(1.55, 0.5 + planet.orbit / 420);
   zoomPunch = {
     active: true,
     cancelling: false,
@@ -1187,29 +1460,27 @@ function updateCameraEffects() {
   const raw = baseZoom * introFactor * punchFactor;
   const lowerBound = inIntro ? 0.05 : ZOOM_MIN;
   zoom = Math.max(lowerBound, Math.min(ZOOM_MAX * 1.6, raw));
+  updateCamTrig();
 }
 
 function project3D(x, y, z) {
-  // سوڕاندن بە دەوری Y (ئازیموت)
-  let x1 = x * Math.cos(renderAzimuth) - z * Math.sin(renderAzimuth);
-  let z1 = x * Math.sin(renderAzimuth) + z * Math.cos(renderAzimuth);
-  let y1 = y;
-  // سوڕاندن بە دەوری X (بەرزی)
-  let y2 = y1 * Math.cos(renderElevation) - z1 * Math.sin(renderElevation);
-  let z2 = y1 * Math.sin(renderElevation) + z1 * Math.cos(renderElevation);
-  let x2 = x1;
-
+  const x1 = x * camCosA - z * camSinA;
+  const z1 = x * camSinA + z * camCosA;
+  const y2 = y * camCosE - z1 * camSinE;
+  const z2 = y * camSinE + z1 * camCosE;
   const depthScale = Math.max(0.6, Math.min(1.4, 1 + z2 / 900));
   return {
-    sx: cx + (x2 + panX) * zoom,
+    sx: cx + (x1 + panX) * zoom,
     sy: cy + (y2 + panY) * zoom,
     z: z2,
     depthScale
   };
 }
+updateCamTrig();
 
 function orbitPoint(orbit, angle) {
-  return { x: Math.cos(angle) * orbit, y: 0, z: Math.sin(angle) * orbit };
+  const r = orbit * sceneScale;
+  return { x: Math.cos(angle) * r, y: 0, z: Math.sin(angle) * r };
 }
 
 /* ---------------- کرتەکردن و ڕاکێشان ---------------- */
@@ -1380,6 +1651,7 @@ canvas.addEventListener('wheel', e => {
 // پشتگیری تاچ (مۆبایل): یەک پەنجە = سوڕانەوە، دوو پەنجە = زووم
 let lastTouchDist = null;
 canvas.addEventListener('touchstart', e => {
+  e.preventDefault();
   lastInteractionTime = performance.now();
   const rect = canvas.getBoundingClientRect();
   if (e.touches.length === 1) {
@@ -1412,6 +1684,7 @@ canvas.addEventListener('touchmove', e => {
 }, { passive: false });
 
 canvas.addEventListener('touchend', e => {
+  e.preventDefault();
   const rect = canvas.getBoundingClientRect();
   if (e.changedTouches.length) {
     pointerUp(e.changedTouches[0].clientX - rect.left, e.changedTouches[0].clientY - rect.top);
@@ -1435,8 +1708,86 @@ speedBtn.addEventListener('click', () => {
 document.getElementById('resetBtn').addEventListener('click', () => {
   camAzimuth = -0.5;
   camElevation = 0.45;
-  baseZoom = DEFAULT_ZOOM;
+  baseZoom = 1;
 });
+
+/* ---------------- کۆنترۆڵەکانی مۆداڵی لیستی ئەکاونتەکان و شەیر ---------------- */
+const linksModal = document.getElementById('linksModal');
+const listBtn = document.getElementById('listBtn');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const shareBtn = document.getElementById('shareBtn');
+const copyLinkBtn = document.getElementById('copyLinkBtn');
+const toastMsg = document.getElementById('toastMsg');
+
+function showToast(text) {
+  if (toastMsg) {
+    toastMsg.textContent = text;
+    toastMsg.classList.add('show');
+    setTimeout(() => toastMsg.classList.remove('show'), 2600);
+  }
+}
+
+function openModal() {
+  if (linksModal) linksModal.classList.add('active');
+}
+function closeModal() {
+  if (linksModal) linksModal.classList.remove('active');
+}
+
+if (listBtn) listBtn.addEventListener('click', openModal);
+if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+if (linksModal) {
+  linksModal.addEventListener('click', (e) => {
+    if (e.target === linksModal) closeModal();
+  });
+}
+
+function copyPageLink() {
+  const url = window.location.href;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => showToast('بەستەری پەڕە بە سەرکەوتوویی کۆپی کرا! ✨'));
+  } else {
+    showToast('بەستەری پەڕە کۆپی کرا!');
+  }
+}
+
+if (copyLinkBtn) copyLinkBtn.addEventListener('click', copyPageLink);
+if (shareBtn) {
+  shareBtn.addEventListener('click', () => {
+    if (navigator.share) {
+      navigator.share({
+        title: "LAWAND'S ACCOUNTS ♟️",
+        text: "سیستەمی خۆرینی سێ-ڕەهەندی — ئەکاونتەکانی لاوەند",
+        url: window.location.href
+      }).catch(() => {});
+    } else {
+      copyPageLink();
+    }
+  });
+}
+
+// پڕکردنەوەی لیستی ئەکاونتەکان لە ناو مۆداڵ
+const modalLinksContainer = document.getElementById('modalLinksContainer');
+if (modalLinksContainer) {
+  planets.forEach(p => {
+    const a = document.createElement('a');
+    a.className = 'modal-link-item';
+    a.href = p.link;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.innerHTML = `
+      <div class="link-info-left">
+        <span class="link-dot" style="background:${p.color};color:${p.color}"></span>
+        <div class="link-texts">
+          <span class="link-label-title">${p.label}</span>
+          <span class="link-sub-desc">هەسارەی ${p.name}</span>
+        </div>
+      </div>
+      <span class="link-arrow">↗</span>
+    `;
+    modalLinksContainer.appendChild(a);
+  });
+}
 
 /* ---------------- کورتبڕی تەختەکلیل (دیسکتۆپ) ---------------- */
 window.addEventListener('keydown', e => {
@@ -1632,14 +1983,15 @@ let time = 0;
 
 function drawStars() {
   ctx.save();
-  stars.forEach(s => {
-    const alpha = 0.4 + 0.4 * Math.sin(time * 0.02 + s.twinkle);
-    ctx.globalAlpha = Math.max(alpha, 0.1);
-    ctx.beginPath();
-    ctx.arc(cx + s.x, cy + s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = '#ffffff';
-    ctx.fill();
-  });
+  ctx.fillStyle = '#ffffff';
+  const t = time * 0.02;
+  for (let i = 0; i < stars.length; i++) {
+    const st = stars[i];
+    const alpha = 0.4 + 0.4 * Math.sin(t + st.twinkle);
+    ctx.globalAlpha = alpha < 0.1 ? 0.1 : alpha;
+    const d = st.r * 2;
+    ctx.fillRect(cx + st.x - st.r, cy + st.y - st.r, d, d);
+  }
   ctx.restore();
 }
 
@@ -1674,6 +2026,7 @@ function spawnSolarFlare(sx, sy, baseR) {
 }
 
 function updateAndDrawSolarFlares(sx, sy, baseR) {
+  if (perfLevel >= 2) return;
   if (Math.random() < 0.006) spawnSolarFlare(sx, sy, baseR);
   for (let i = solarFlares.length - 1; i >= 0; i--) {
     const f = solarFlares[i];
@@ -1697,10 +2050,7 @@ function updateAndDrawSolarFlares(sx, sy, baseR) {
     ctx.strokeStyle = `rgba(255,140,60,${alpha})`;
     ctx.lineWidth = 2.4 * (1 - t * 0.4);
     ctx.lineCap = 'round';
-    ctx.shadowColor = 'rgba(255,120,40,0.7)';
-    ctx.shadowBlur = 8;
     ctx.stroke();
-    ctx.shadowBlur = 0;
   }
 }
 
@@ -1726,7 +2076,7 @@ function drawSun() {
   const pulse = 1 + Math.sin(time * 0.02) * 0.045 + Math.sin(time * 0.007) * 0.02;
   const baseR = sun.radius * zoom * pulse;
 
-  // هەیبەی ڕووناکی دەرەوە (نەرم، بێ پشکۆی تیژ)
+  // هەیبەی ڕووناکی دەرەوە
   const glow = ctx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, baseR * 2.2);
   glow.addColorStop(0, 'rgba(255,170,60,0.45)');
   glow.addColorStop(0.4, 'rgba(255,110,25,0.18)');
@@ -1736,36 +2086,24 @@ function drawSun() {
   ctx.fillStyle = glow;
   ctx.fill();
 
-  // پشکۆکانی زێڕین کە لە خۆرەوە دەردەکەون (rays)
+  // تیشکەکان (ڕەنگی ڕاستەوخۆ، بێ گرادیێنتی جیاواز بۆ هەر تیشکێک)
   ctx.save();
-  const rayCount = 16;
+  ctx.lineCap = 'round';
+  const rayCount = perfLevel >= 2 ? 8 : 12;
   for (let i = 0; i < rayCount; i++) {
     const a = (i / rayCount) * Math.PI * 2 + time * 0.0015;
     const flick = 0.6 + 0.4 * Math.sin(time * 0.03 + i * 1.7);
-    const rLen = baseR * (1.5 + 0.9 * flick);
-    const rx1 = p.sx + Math.cos(a) * baseR * 0.95;
-    const ry1 = p.sy + Math.sin(a) * baseR * 0.95;
-    const rx2 = p.sx + Math.cos(a) * rLen;
-    const ry2 = p.sy + Math.sin(a) * rLen;
-    const rayGrad = ctx.createLinearGradient(rx1, ry1, rx2, ry2);
-    rayGrad.addColorStop(0, `rgba(255,200,110,${0.35 * flick})`);
-    rayGrad.addColorStop(1, 'rgba(255,140,40,0)');
-    ctx.strokeStyle = rayGrad;
-    ctx.lineWidth = baseR * 0.08 * flick;
-    ctx.lineCap = 'round';
+    const rLen = baseR * (1.4 + 0.8 * flick);
+    ctx.strokeStyle = `rgba(255,175,70,${0.32 * flick})`;
+    ctx.lineWidth = baseR * 0.09 * flick;
     ctx.beginPath();
-    ctx.moveTo(rx1, ry1);
-    ctx.lineTo(rx2, ry2);
+    ctx.moveTo(p.sx + Math.cos(a) * baseR * 0.95, p.sy + Math.sin(a) * baseR * 0.95);
+    ctx.lineTo(p.sx + Math.cos(a) * rLen, p.sy + Math.sin(a) * rLen);
     ctx.stroke();
   }
   ctx.restore();
 
-  // خۆر وەک تۆپێکی تەواو، هەمان شێوازی ڕەنگاوڕەنگی هەسارەکان (سادە و خۆیی)
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(p.sx, p.sy, baseR, 0, Math.PI * 2);
-  ctx.clip();
-
+  // تۆپی خۆر
   const lightX = p.sx - baseR * 0.4;
   const lightY = p.sy - baseR * 0.4;
   const sphereGrad = ctx.createRadialGradient(lightX, lightY, baseR * 0.05, p.sx, p.sy, baseR * 1.15);
@@ -1777,30 +2115,23 @@ function drawSun() {
   ctx.fillStyle = sphereGrad;
   ctx.fill();
 
-  // سێبەری تۆپاوی نەرم لەسەر لای تاریک (هەمان شێوازی هەسارەکان)
   const shadeGrad = ctx.createRadialGradient(lightX, lightY, baseR * 0.2, p.sx, p.sy, baseR * 1.1);
   shadeGrad.addColorStop(0, 'rgba(255,255,255,0)');
   shadeGrad.addColorStop(0.7, 'rgba(0,0,0,0)');
   shadeGrad.addColorStop(1, 'rgba(90,10,0,0.4)');
-  ctx.beginPath();
-  ctx.arc(p.sx, p.sy, baseR, 0, Math.PI * 2);
   ctx.fillStyle = shadeGrad;
   ctx.fill();
 
-  ctx.restore();
-
-  // چوارچێوەی دەرەوەی تۆپ
   ctx.beginPath();
   ctx.arc(p.sx, p.sy, baseR, 0, Math.PI * 2);
   ctx.strokeStyle = 'rgba(255,220,150,0.5)';
   ctx.lineWidth = 1;
   ctx.stroke();
 
-  // گڕی خۆر کە دەردەکەون و دووبارە دەگەڕێنەوە ناوی
   updateAndDrawSolarFlares(p.sx, p.sy, baseR);
 
-  // پرشنگی ئاگر (embers) بەرزبوونەوە لە دەوری تۆپ
-  if (Math.random() < (isMobileDevice ? 0.25 : 0.5)) spawnEmber(p.sx, p.sy, baseR);
+  // پرشنگی ئاگر (embers)
+  if (perfLevel < 2 && embers.length < 50 && Math.random() < (IS_MOBILE ? 0.15 : 0.3)) spawnEmber(p.sx, p.sy, baseR);
   for (let i = embers.length - 1; i >= 0; i--) {
     const e = embers[i];
     e.x += e.vx;
@@ -1811,48 +2142,51 @@ function drawSun() {
     const alpha = fadeP < 0.2 ? fadeP / 0.2 : 1 - (fadeP - 0.2) / 0.8;
     ctx.beginPath();
     ctx.arc(e.x, e.y, e.r * zoom, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,${170 + Math.floor(Math.random() * 60)},60,${Math.max(alpha, 0) * 0.9})`;
+    ctx.fillStyle = `rgba(255,200,80,${Math.max(alpha, 0) * 0.9})`;
     ctx.fill();
   }
 
   const sunZoomLabelFactor = Math.max(0.4, Math.min(1.6, zoom));
   const sunLabelScale = labelFontScale * sunZoomLabelFactor;
-  ctx.font = `bold ${Math.round(15 * sunLabelScale)}px Segoe UI`;
+  ctx.font = `bold ${Math.round(15 * sunLabelScale)}px Vazirmatn, Segoe UI, sans-serif`;
   ctx.textAlign = 'center';
+  ctx.lineJoin = 'round';
   ctx.lineWidth = 3;
   ctx.strokeStyle = 'rgba(40,10,0,0.75)';
   ctx.strokeText(sun.name, p.sx, p.sy + baseR + 26 * sunLabelScale);
   ctx.fillStyle = 'rgba(255,235,190,0.95)';
-  ctx.shadowColor = 'rgba(255,150,40,0.6)';
-  ctx.shadowBlur = 6;
   ctx.fillText(sun.name, p.sx, p.sy + baseR + 26 * sunLabelScale);
-  ctx.shadowBlur = 0;
 }
 
-function drawOrbit3D(orbit, planet) {
-  const SEGMENTS = 72;
-  ctx.beginPath();
+function traceOrbit(orbit) {
+  const SEGMENTS = 56;
   for (let i = 0; i <= SEGMENTS; i++) {
     const a = (i / SEGMENTS) * Math.PI * 2;
-    const pt = orbitPoint(orbit, a);
-    const proj = project3D(pt.x, pt.y, pt.z);
+    const r = orbit * sceneScale;
+    const proj = project3D(Math.cos(a) * r, 0, Math.sin(a) * r);
     if (i === 0) ctx.moveTo(proj.sx, proj.sy);
     else ctx.lineTo(proj.sx, proj.sy);
   }
-  const isFocused = zoomPunch.active && zoomPunch.focusedPlanet === planet;
-  if (isFocused) {
+}
+
+// هەموو ئۆربیتەکان بە یەک stroke دەکێشرێن (نەک ٨ جار)
+function drawOrbits() {
+  const focused = zoomPunch.active ? zoomPunch.focusedPlanet : null;
+  ctx.beginPath();
+  for (let i = 0; i < planets.length; i++) {
+    if (planets[i] !== focused) traceOrbit(planets[i].orbit);
+  }
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  if (focused) {
     const b = zoomPunch.bumpValue;
+    ctx.beginPath();
+    traceOrbit(focused.orbit);
     ctx.strokeStyle = `rgba(255,255,255,${0.08 + b * 0.55})`;
     ctx.lineWidth = 1 + b * 1.6;
-    ctx.shadowColor = 'rgba(255,255,255,0.6)';
-    ctx.shadowBlur = 6 * b;
-  } else {
-    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-    ctx.lineWidth = 1;
-    ctx.shadowBlur = 0;
+    ctx.stroke();
   }
-  ctx.stroke();
-  ctx.shadowBlur = 0;
 }
 
 // وێنەی هەسارەی دەستکردی بچووک (satellite)
@@ -1900,58 +2234,219 @@ function drawSatelliteIcon(x, y, s, rot) {
   ctx.restore();
 }
 
+/* ---------------- وێنەی ئامادەکراوی هەسارەکان (sprite) بۆ خێرایی ----------------
+   لە جیاتی کێشانی گرادیێنت و چاڵ و بەند هەموو فرەیمێک، یەکجار دەکێشرێت و دواتر drawImage دەکرێت */
+const SPRITE_SIZE = 192;
+let planetOverlay = null;
+
+function paintPlanetBase(g, p, x0, y0, r) {
+  g.save();
+  g.beginPath();
+  g.arc(x0, y0, r, 0, Math.PI * 2);
+  g.clip();
+
+  const lx = x0 - r * 0.42, ly = y0 - r * 0.42;
+  const sg = g.createRadialGradient(lx, ly, r * 0.04, x0, y0, r * 1.15);
+  sg.addColorStop(0, shadeColor(p.color, 0.4));
+  sg.addColorStop(0.45, p.color);
+  sg.addColorStop(0.85, p.color2 || shadeColor(p.color, -0.4));
+  sg.addColorStop(1, shadeColor(p.color, -0.65));
+  g.fillStyle = sg;
+  g.fillRect(x0 - r, y0 - r, r * 2, r * 2);
+
+  if (p.craters) {
+    [[-0.3,-0.2,0.22],[0.25,0.25,0.18],[-0.15,0.3,0.15],[0.3,-0.15,0.14],[-0.05,-0.38,0.12]].forEach(([ox, oy, cr]) => {
+      g.fillStyle = 'rgba(55,48,42,0.35)';
+      g.beginPath();
+      g.arc(x0 + ox * r, y0 + oy * r, cr * r, 0, Math.PI * 2);
+      g.fill();
+      g.fillStyle = 'rgba(255,255,255,0.12)';
+      g.beginPath();
+      g.arc(x0 + (ox + 0.04) * r, y0 + (oy + 0.04) * r, cr * r * 0.82, 0, Math.PI * 2);
+      g.fill();
+    });
+  }
+
+  if (p.venusClouds) {
+    g.globalAlpha = 0.3;
+    g.fillStyle = '#fff2bf';
+    for (let b = -2; b <= 2; b++) {
+      g.beginPath();
+      g.ellipse(x0, y0 + b * r * 0.3, r * 0.98, r * 0.12, 0.18, 0, Math.PI * 2);
+      g.fill();
+    }
+    g.globalAlpha = 1;
+  }
+
+  if (p.earthLike) {
+    g.globalAlpha = 0.58;
+    g.fillStyle = '#2ea44e';
+    [[-0.38, -0.22, 0.38], [0.28, 0.12, 0.34], [-0.12, 0.36, 0.28], [0.18, -0.32, 0.22], [-0.35, 0.18, 0.22]].forEach(([ox, oy, rr]) => {
+      g.beginPath();
+      g.arc(x0 + ox * r, y0 + oy * r, rr * r, 0, Math.PI * 2);
+      g.fill();
+    });
+    g.fillStyle = '#ffffff';
+    g.globalAlpha = 0.85;
+    g.beginPath();
+    g.ellipse(x0, y0 - r * 0.88, r * 0.45, r * 0.18, 0, 0, Math.PI * 2);
+    g.fill();
+    g.beginPath();
+    g.ellipse(x0, y0 + r * 0.88, r * 0.4, r * 0.16, 0, 0, Math.PI * 2);
+    g.fill();
+    g.globalAlpha = 1;
+  }
+
+  if (p.marsPoles) {
+    g.fillStyle = 'rgba(255,255,255,0.85)';
+    g.beginPath();
+    g.ellipse(x0, y0 - r * 0.86, r * 0.36, r * 0.16, 0, 0, Math.PI * 2);
+    g.fill();
+    g.fillStyle = 'rgba(70,25,12,0.35)';
+    g.beginPath();
+    g.ellipse(x0 - r * 0.15, y0 + r * 0.12, r * 0.55, r * 0.24, 0.2, 0, Math.PI * 2);
+    g.fill();
+  }
+
+  if (p.bands) {
+    const bandCount = 6;
+    for (let i = 0; i < bandCount; i++) {
+      const by = y0 - r + (i + 0.6) * (r * 2 / bandCount);
+      g.fillStyle = i % 2 === 0 ? 'rgba(95, 40, 12, 0.32)' : 'rgba(255, 235, 195, 0.25)';
+      g.fillRect(x0 - r, by - r * 0.1, r * 2, r * 0.18);
+    }
+    if (p.redSpot) {
+      const spotX = x0 + r * 0.32, spotY = y0 + r * 0.28;
+      g.beginPath();
+      g.ellipse(spotX, spotY, r * 0.26, r * 0.16, -0.1, 0, Math.PI * 2);
+      g.fillStyle = '#b83b1d';
+      g.fill();
+      g.beginPath();
+      g.ellipse(spotX, spotY, r * 0.15, r * 0.09, -0.1, 0, Math.PI * 2);
+      g.fillStyle = '#e86a43';
+      g.fill();
+    }
+  }
+
+  if (p.neptuneStorm) {
+    g.globalAlpha = 0.4;
+    g.fillStyle = '#ffffff';
+    g.beginPath();
+    g.ellipse(x0 - r * 0.2, y0 - r * 0.25, r * 0.3, r * 0.08, 0.2, 0, Math.PI * 2);
+    g.fill();
+    g.beginPath();
+    g.ellipse(x0 + r * 0.25, y0 + r * 0.2, r * 0.22, r * 0.06, -0.1, 0, Math.PI * 2);
+    g.fill();
+    g.globalAlpha = 1;
+  }
+  g.restore();
+}
+
+function getPlanetSprite(p) {
+  if (p.sprite) return p.sprite;
+  const c = document.createElement('canvas');
+  c.width = c.height = SPRITE_SIZE;
+  paintPlanetBase(c.getContext('2d'), p, SPRITE_SIZE / 2, SPRITE_SIZE / 2, SPRITE_SIZE / 2 - 1);
+  p.sprite = c;
+  return c;
+}
+
+// ڕووناکی و سێبەری هاوبەش بۆ هەموو هەسارەکان (یەک وێنە)
+function getPlanetOverlay() {
+  if (planetOverlay) return planetOverlay;
+  const c = document.createElement('canvas');
+  c.width = c.height = SPRITE_SIZE;
+  const g = c.getContext('2d');
+  const x0 = SPRITE_SIZE / 2, y0 = SPRITE_SIZE / 2, r = SPRITE_SIZE / 2 - 1;
+  const lx = x0 - r * 0.42, ly = y0 - r * 0.42;
+  g.beginPath();
+  g.arc(x0, y0, r, 0, Math.PI * 2);
+  g.clip();
+  const spec = g.createRadialGradient(lx, ly, r * 0.02, lx, ly, r * 0.55);
+  spec.addColorStop(0, 'rgba(255,255,255,0.45)');
+  spec.addColorStop(0.5, 'rgba(255,255,255,0.08)');
+  spec.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = spec;
+  g.fillRect(0, 0, SPRITE_SIZE, SPRITE_SIZE);
+  const shade = g.createRadialGradient(lx, ly, r * 0.2, x0, y0, r * 1.15);
+  shade.addColorStop(0, 'rgba(255,255,255,0)');
+  shade.addColorStop(0.65, 'rgba(0,0,0,0)');
+  shade.addColorStop(1, 'rgba(0,0,0,0.52)');
+  g.fillStyle = shade;
+  g.fillRect(0, 0, SPRITE_SIZE, SPRITE_SIZE);
+  planetOverlay = c;
+  return c;
+}
+
 function drawPlanet(p) {
   const pt = orbitPoint(p.orbit, p.angle);
   const proj = project3D(pt.x, pt.y, pt.z);
-  const r = p.radius * zoom * proj.depthScale;
+  const visualScale = sceneScale < 1 ? Math.max(1.05, sceneScale + 0.35) : 1.15;
+  const r = p.radius * visualScale * zoom * proj.depthScale;
 
-  planetScreenPositions.push({ x: proj.sx, y: proj.sy, radius: Math.max(r, 6), planet: p });
+  planetScreenPositions.push({ x: proj.sx, y: proj.sy, radius: Math.max(r, 7), planet: p });
 
-  // LOD: کاتێک زووم زۆر دوورە و هەسارە زۆر بچووک دەبێت، بیکە بە خاڵێکی سادەی ڕووناک
-  // (بۆ خۆپاراستن لە فەوتان و باشترکردنی کارایی) بەڵام هێشتا ناوی و کلیکی دەمێنێتەوە
+  p.trail.push({ x: proj.sx, y: proj.sy });
+  if (p.trail.length > 26) p.trail.shift();
+
+  // LOD: کاتێک زووم زۆر دوورە
   if (r < 2.2) {
-    ctx.save();
-    p.trail.push({ x: proj.sx, y: proj.sy });
-    if (p.trail.length > 26) p.trail.shift();
     ctx.beginPath();
     ctx.arc(proj.sx, proj.sy, Math.max(1.4, r * 1.8), 0, Math.PI * 2);
     ctx.fillStyle = p.color;
-    ctx.shadowColor = p.color;
-    ctx.shadowBlur = 6;
     ctx.fill();
-    ctx.shadowBlur = 0;
     if (zoom < 0.7) {
-      ctx.font = `${Math.round(11 * labelFontScale)}px Segoe UI`;
+      ctx.font = `${Math.round(11 * labelFontScale)}px Vazirmatn, Segoe UI, sans-serif`;
       ctx.fillStyle = 'rgba(255,255,255,0.75)';
       ctx.textAlign = 'center';
       ctx.fillText(p.name, proj.sx, proj.sy - 8 * labelFontScale);
     }
-    ctx.restore();
     return;
   }
 
-  // تراکی ئۆربیت: کورتەڕێگای دوایین چەند چرکەیەک، بە فەیدینگ
-  const TRAIL_MAX = 26;
-  p.trail.push({ x: proj.sx, y: proj.sy });
-  if (p.trail.length > TRAIL_MAX) p.trail.shift();
-  if (p.trail.length > 1) {
-    ctx.save();
-    for (let i = 1; i < p.trail.length; i++) {
-      const t0 = p.trail[i - 1];
-      const t1 = p.trail[i];
-      const age = i / p.trail.length;
+  // تراکی ئۆربیت: ٤ بەش بە یەک stroke هەر بەشێک (نەک ٢٥ stroke)
+  if (perfLevel < 2 && p.trail.length > 6) {
+    if (!p.trailRGB) p.trailRGB = shadeColor(p.color, 0.1).slice(4, -1);
+    const n = p.trail.length, groups = 4, per = Math.ceil((n - 1) / groups);
+    ctx.lineCap = 'round';
+    for (let gi = 0; gi < groups; gi++) {
+      const a = gi * per, b = Math.min(n - 1, (gi + 1) * per);
+      if (a >= b) break;
+      const age = (gi + 0.5) / groups;
       ctx.beginPath();
-      ctx.moveTo(t0.x, t0.y);
-      ctx.lineTo(t1.x, t1.y);
-      ctx.strokeStyle = shadeColor(p.color, 0.1).replace('rgb', 'rgba').replace(')', `,${age * 0.35})`);
+      ctx.moveTo(p.trail[a].x, p.trail[a].y);
+      for (let i = a + 1; i <= b; i++) ctx.lineTo(p.trail[i].x, p.trail[i].y);
+      ctx.strokeStyle = `rgba(${p.trailRGB},${age * 0.35})`;
       ctx.lineWidth = Math.max(0.6, r * 0.35 * age);
-      ctx.lineCap = 'round';
       ctx.stroke();
     }
+  }
+
+  // بەرگەهەوای درەوشاوە
+  if (p.glowColor && r > 3) {
+    const atmosGrad = ctx.createRadialGradient(proj.sx, proj.sy, r * 0.85, proj.sx, proj.sy, r * 1.45);
+    atmosGrad.addColorStop(0, p.glowColor);
+    atmosGrad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.beginPath();
+    ctx.arc(proj.sx, proj.sy, r * 1.45, 0, Math.PI * 2);
+    ctx.fillStyle = atmosGrad;
+    ctx.fill();
+  }
+
+  // ئاڵقەی ئۆرانۆس
+  if (p.uranusRings && r > 5) {
+    ctx.save();
+    ctx.translate(proj.sx, proj.sy);
+    ctx.rotate(1.25);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, r * 1.75, r * 1.75 * 0.18, 0, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(140, 245, 235, 0.4)';
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
     ctx.restore();
   }
 
-  // ئەگەر هەسارە لە پشتی خۆرەوە بێت (eclipse-like)، تۆزێک تاریکتری بکە
+  // کوسوف/تێپەڕین لەگەڵ خۆر
   const sunProj = project3D(0, 0, 0);
   const dxSun = proj.sx - sunProj.sx, dySun = proj.sy - sunProj.sy;
   const distToSun = Math.sqrt(dxSun * dxSun + dySun * dySun);
@@ -1960,127 +2455,81 @@ function drawPlanet(p) {
   if (proj.z > 0 && distToSun < eclipseR + r) {
     eclipseFactor = Math.max(0, 1 - distToSun / (eclipseR + r));
   }
-  // تیشکی لای دواوە (rim light) کاتێک هەسارە لە بەردەم خۆردا تێدەپەڕێت (transit)
   let transitFactor = 0;
   if (proj.z < 0 && distToSun < eclipseR + r * 1.6) {
     transitFactor = Math.max(0, 1 - distToSun / (eclipseR + r * 1.6));
   }
 
-  if (p.ring) {
+  // ئاڵقەی زوحەل
+  if (p.ring && r > 5) {
     ctx.save();
     ctx.translate(proj.sx, proj.sy);
     ctx.rotate(camAzimuth * 0.4 - 0.3);
-    // ئاڵقەی زوحەل بە گراديێنت (تاریک لە ناوەوە/دەرەوە، ڕوون لە ناوەڕاست)
-    const ringGrad = ctx.createLinearGradient(-r * 2.1, 0, r * 2.1, 0);
-    ringGrad.addColorStop(0, 'rgba(150,125,90,0.15)');
-    ringGrad.addColorStop(0.22, 'rgba(230,215,167,0.85)');
-    ringGrad.addColorStop(0.5, 'rgba(255,245,215,0.35)');
-    ringGrad.addColorStop(0.78, 'rgba(230,215,167,0.85)');
-    ringGrad.addColorStop(1, 'rgba(150,125,90,0.15)');
-    [1.55, 1.75, 1.95, 2.1].forEach((mult, idx) => {
+    const ringGrad = ctx.createLinearGradient(-r * 2.3, 0, r * 2.3, 0);
+    ringGrad.addColorStop(0, 'rgba(160,135,95,0.1)');
+    ringGrad.addColorStop(0.2, 'rgba(235,215,165,0.9)');
+    ringGrad.addColorStop(0.48, 'rgba(255,245,210,0.3)');
+    ringGrad.addColorStop(0.52, 'rgba(40,30,20,0.85)');
+    ringGrad.addColorStop(0.56, 'rgba(255,245,210,0.4)');
+    ringGrad.addColorStop(0.8, 'rgba(235,215,165,0.9)');
+    ringGrad.addColorStop(1, 'rgba(160,135,95,0.1)');
+    ctx.strokeStyle = ringGrad;
+    [1.45, 1.68, 1.95, 2.22].forEach((mult, idx) => {
       ctx.beginPath();
       ctx.ellipse(0, 0, r * mult, r * mult * 0.285, 0, 0, Math.PI * 2);
-      ctx.strokeStyle = ringGrad;
-      ctx.lineWidth = idx === 3 ? 2 : 3.2;
+      ctx.lineWidth = idx === 3 ? 2.2 : 3.8;
       ctx.stroke();
     });
     ctx.restore();
   }
 
-  // تۆپی هەسارە بە گراديێنتی ڕووناکی/سێبەر بۆ کاریگەری سێ-ڕەهەندی
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(proj.sx, proj.sy, r, 0, Math.PI * 2);
-  ctx.clip();
+  // تۆپی هەسارە (وێنەی ئامادەکراو)
+  ctx.drawImage(getPlanetSprite(p), proj.sx - r, proj.sy - r, r * 2, r * 2);
 
-  const lightX = proj.sx - r * 0.4;
-  const lightY = proj.sy - r * 0.4;
-  const sphereGrad = ctx.createRadialGradient(lightX, lightY, r * 0.05, proj.sx, proj.sy, r * 1.15);
-  sphereGrad.addColorStop(0, shadeColor(p.color, 0.45));
-  sphereGrad.addColorStop(0.5, p.color);
-  sphereGrad.addColorStop(1, p.color2 || shadeColor(p.color, -0.4));
-  ctx.beginPath();
-  ctx.arc(proj.sx, proj.sy, r, 0, Math.PI * 2);
-  ctx.fillStyle = sphereGrad;
-  ctx.shadowColor = p.color;
-  ctx.shadowBlur = 10;
-  ctx.fill();
-  ctx.shadowBlur = 0;
-
-  // ئاڵقەکانی هەوری موشتەری (بەندە ئاسۆیی)
-  if (p.bands) {
-    ctx.globalAlpha = 0.25;
-    const bandCount = 4;
-    for (let i = 0; i < bandCount; i++) {
-      const by = proj.sy - r + (i + 0.7) * (r * 2 / bandCount);
-      ctx.fillStyle = i % 2 === 0 ? shadeColor(p.color, -0.15) : shadeColor(p.color, 0.2);
-      ctx.fillRect(proj.sx - r, by - r * 0.13, r * 2, r * 0.2);
+  // بەشە جووڵاوەکان: هەوری زەوی و زریانی مریخ
+  if ((p.earthLike && r > 5) || (p.dustStorm && r > 3)) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(proj.sx, proj.sy, r, 0, Math.PI * 2);
+    ctx.clip();
+    if (p.earthLike) {
+      if (!p.cloudRot) p.cloudRot = Math.random() * Math.PI * 2;
+      p.cloudRot += 0.0025 * speedMultiplier;
+      ctx.globalAlpha = 0.48;
+      ctx.fillStyle = '#ffffff';
+      const cloudBlobs = [
+        [0.0, -0.3, 0.32], [0.42, -0.05, 0.26], [-0.42, 0.08, 0.28],
+        [0.18, 0.36, 0.24], [-0.22, -0.48, 0.2], [0.48, 0.38, 0.18]
+      ];
+      cloudBlobs.forEach(([ox, oy, rr], i) => {
+        const a = p.cloudRot + i * 0.95;
+        const cox = ox * Math.cos(a) - oy * Math.sin(a) * 0.3;
+        const coy = oy * Math.cos(a) * 0.3 + ox * Math.sin(a);
+        ctx.beginPath();
+        ctx.ellipse(proj.sx + cox * r, proj.sy + coy * r * 0.9, rr * r * 1.35, rr * r * 0.58, a, 0, Math.PI * 2);
+        ctx.fill();
+      });
     }
-    ctx.globalAlpha = 1;
-  }
-
-  // کاریگەری زەوی-ماناوی (کیشوەرە سەوزەکان)
-  if (p.earthLike) {
-    ctx.globalAlpha = 0.35;
-    ctx.fillStyle = '#3fae5e';
-    [[-0.35, -0.25, 0.42], [0.25, 0.1, 0.32], [-0.1, 0.4, 0.24]].forEach(([ox, oy, rr]) => {
-      ctx.beginPath();
-      ctx.arc(proj.sx + ox * r, proj.sy + oy * r, rr * r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    ctx.globalAlpha = 1;
-
-    // چینی هەورەکان: نیمچە-شەفاف و بە هێواشی دەسووڕێتەوە
-    if (!p.cloudRot) p.cloudRot = Math.random() * Math.PI * 2;
-    p.cloudRot += 0.0025 * speedMultiplier;
-    ctx.save();
-    ctx.globalAlpha = 0.4;
-    ctx.fillStyle = '#ffffff';
-    const cloudBlobs = [
-      [0.0, -0.3, 0.30], [0.4, -0.05, 0.24], [-0.45, 0.05, 0.26],
-      [0.15, 0.35, 0.22], [-0.2, -0.5, 0.18], [0.5, 0.4, 0.16]
-    ];
-    cloudBlobs.forEach(([ox, oy, rr], i) => {
-      const a = p.cloudRot + i * 0.9;
-      const cox = ox * Math.cos(a) - oy * Math.sin(a) * 0.3;
-      const coy = oy * Math.cos(a) * 0.3 + ox * Math.sin(a);
-      ctx.beginPath();
-      ctx.ellipse(proj.sx + cox * r, proj.sy + coy * r * 0.9, rr * r * 1.3, rr * r * 0.55, a, 0, Math.PI * 2);
-      ctx.fill();
-    });
+    if (p.dustStorm) {
+      if (!p.stormRot) p.stormRot = Math.random() * Math.PI * 2;
+      p.stormRot += 0.004 * speedMultiplier;
+      ctx.globalAlpha = 0.32;
+      ctx.fillStyle = '#e27546';
+      [[0.1, -0.2, 0.5], [-0.3, 0.25, 0.38], [0.35, 0.3, 0.3]].forEach(([ox, oy, rr], i) => {
+        const a = p.stormRot + i * 1.6;
+        const sox = ox * Math.cos(a) - oy * Math.sin(a) * 0.4;
+        const soy = oy * Math.cos(a) * 0.4 + ox * Math.sin(a);
+        ctx.beginPath();
+        ctx.ellipse(proj.sx + sox * r, proj.sy + soy * r * 0.9, rr * r, rr * r * 0.6, a, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
     ctx.restore();
   }
 
-  // زڵ تۆزی سوور بۆ مریخ (dust storm swirl)
-  if (p.dustStorm) {
-    if (!p.stormRot) p.stormRot = Math.random() * Math.PI * 2;
-    p.stormRot += 0.004 * speedMultiplier;
-    ctx.save();
-    ctx.globalAlpha = 0.3;
-    ctx.fillStyle = '#c85a2e';
-    const stormBlobs = [[0.1, -0.2, 0.5], [-0.3, 0.25, 0.38], [0.35, 0.3, 0.3]];
-    stormBlobs.forEach(([ox, oy, rr], i) => {
-      const a = p.stormRot + i * 1.6;
-      const sox = ox * Math.cos(a) - oy * Math.sin(a) * 0.4;
-      const soy = oy * Math.cos(a) * 0.4 + ox * Math.sin(a);
-      ctx.beginPath();
-      ctx.ellipse(proj.sx + sox * r, proj.sy + soy * r * 0.9, rr * r, rr * r * 0.6, a, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    ctx.restore();
-  }
+  // ڕووناکی و سێبەر
+  ctx.drawImage(getPlanetOverlay(), proj.sx - r, proj.sy - r, r * 2, r * 2);
 
-  // سێبەری تۆپاوی نەرم لەسەر لای تاریک
-  const shadeGrad = ctx.createRadialGradient(lightX, lightY, r * 0.2, proj.sx, proj.sy, r * 1.1);
-  shadeGrad.addColorStop(0, 'rgba(255,255,255,0)');
-  shadeGrad.addColorStop(0.7, 'rgba(0,0,0,0)');
-  shadeGrad.addColorStop(1, 'rgba(0,0,0,0.35)');
-  ctx.beginPath();
-  ctx.arc(proj.sx, proj.sy, r, 0, Math.PI * 2);
-  ctx.fillStyle = shadeGrad;
-  ctx.fill();
-
-  // تاریکبوونەوەی هەسارە کاتێک لە پشتی خۆرەوەیە (eclipse-like)
   if (eclipseFactor > 0) {
     ctx.beginPath();
     ctx.arc(proj.sx, proj.sy, r, 0, Math.PI * 2);
@@ -2088,23 +2537,15 @@ function drawPlanet(p) {
     ctx.fill();
   }
 
-  ctx.restore();
-
-  // تیشکی لای دواوە کاتێک هەسارە لە بەردەم خۆردا تێدەپەڕێت (rim/backlight)
   if (transitFactor > 0) {
-    ctx.save();
     ctx.beginPath();
     ctx.arc(proj.sx, proj.sy, r * 1.12, 0, Math.PI * 2);
     ctx.strokeStyle = `rgba(255,200,120,${transitFactor * 0.8})`;
     ctx.lineWidth = Math.max(1, r * 0.18);
-    ctx.shadowColor = 'rgba(255,180,80,0.8)';
-    ctx.shadowBlur = 10;
     ctx.stroke();
-    ctx.shadowBlur = 0;
-    ctx.restore();
   }
 
-  // هەڵقۆزی نوورانی دەوری هەسارە کاتێک کامێرا زووم بۆی دەکات (focus highlight)
+  // هەڵقۆزی فۆکەس
   if (zoomPunch.active && zoomPunch.focusedPlanet === p) {
     const b = zoomPunch.bumpValue;
     ctx.save();
@@ -2115,51 +2556,100 @@ function drawPlanet(p) {
       ctx.arc(proj.sx, proj.sy, ringR, 0, Math.PI * 2);
       ctx.strokeStyle = 'rgba(255,255,255,0.75)';
       ctx.lineWidth = 1.6 - ring * 0.6;
-      ctx.shadowColor = 'rgba(255,255,255,0.6)';
-      ctx.shadowBlur = 12;
       ctx.stroke();
     }
-    ctx.shadowBlur = 0;
     ctx.restore();
   }
 
+  // ناوەکان (بێ shadowBlur؛ بە دەورەیەکی تاریک خوێندنەوەیان ڕوونە)
   const isHovered = supportsHover && hoveredPlanet === p;
   const zoomLabelFactor = Math.max(0.4, Math.min(1.6, zoom));
   const labelScale = (isHovered ? labelFontScale * 1.35 : labelFontScale) * zoomLabelFactor;
-  ctx.font = `bold ${Math.round(15 * labelScale)}px Segoe UI`;
-  ctx.fillStyle = isHovered ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.9)';
-  ctx.shadowColor = 'rgba(0,0,0,0.6)';
-  ctx.shadowBlur = isHovered ? 7 : 4;
   ctx.textAlign = 'center';
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = 'rgba(0,0,0,0.6)';
+  ctx.font = `bold ${Math.round(15 * labelScale)}px Vazirmatn, Segoe UI, sans-serif`;
+  ctx.strokeText(p.name, proj.sx, proj.sy - r - 10 * labelScale);
+  ctx.fillStyle = isHovered ? '#ffffff' : 'rgba(255,255,255,0.92)';
   ctx.fillText(p.name, proj.sx, proj.sy - r - 10 * labelScale);
-  ctx.shadowBlur = 0;
 
-  // تەکە بەردەکانی لەتەنیشت هەسارە
-  p.rocks.forEach(rock => {
-    rock.angle += rock.speed * speedMultiplier;
-    rock.rot += rock.rotSpeed * speedMultiplier;
-    const rx = proj.sx + Math.cos(rock.angle) * rock.orbitR * zoom * proj.depthScale;
-    const ry = proj.sy + Math.sin(rock.angle) * rock.orbitR * zoom * proj.depthScale * 0.6;
-    ctx.save();
-    ctx.translate(rx, ry);
-    ctx.rotate(rock.rot);
-    ctx.beginPath();
-    rock.verts.forEach((v, i) => {
-      const vx = v.x * zoom * proj.depthScale;
-      const vy = v.y * zoom * proj.depthScale;
-      if (i === 0) ctx.moveTo(vx, vy);
-      else ctx.lineTo(vx, vy);
+  if (p.label) {
+    ctx.font = `600 ${Math.round(11 * labelScale)}px Vazirmatn, Segoe UI, sans-serif`;
+    ctx.strokeStyle = 'rgba(0,0,0,0.7)';
+    ctx.strokeText(p.label, proj.sx, proj.sy + r + 16 * labelScale);
+    ctx.fillStyle = isHovered ? '#ffdd55' : 'rgba(255,220,130,0.88)';
+    ctx.fillText(p.label, proj.sx, proj.sy + r + 16 * labelScale);
+  }
+
+  // تەکە بەردەکان
+  if (perfLevel < 2) {
+    p.rocks.forEach(rock => {
+      rock.angle += rock.speed * speedMultiplier;
+      rock.rot += rock.rotSpeed * speedMultiplier;
+      const rx = proj.sx + Math.cos(rock.angle) * rock.orbitR * zoom * proj.depthScale;
+      const ry = proj.sy + Math.sin(rock.angle) * rock.orbitR * zoom * proj.depthScale * 0.6;
+      ctx.save();
+      ctx.translate(rx, ry);
+      ctx.rotate(rock.rot);
+      ctx.beginPath();
+      rock.verts.forEach((v, i) => {
+        const vx = v.x * zoom * proj.depthScale;
+        const vy = v.y * zoom * proj.depthScale;
+        if (i === 0) ctx.moveTo(vx, vy);
+        else ctx.lineTo(vx, vy);
+      });
+      ctx.closePath();
+      ctx.fillStyle = rock.color;
+      ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+      ctx.lineWidth = 0.6;
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
     });
-    ctx.closePath();
-    ctx.fillStyle = rock.color;
-    ctx.strokeStyle = 'rgba(0,0,0,0.35)';
-    ctx.lineWidth = 0.6;
-    ctx.fill();
-    ctx.stroke();
-    ctx.restore();
-  });
+  }
 
-  // هەسارەی دەستکرد (تەنیا بۆ زەوی)
+  // مانگ (تەنیا زەوی)
+  if (p.moon) {
+    const moon = p.moon;
+    moon.angle += moon.speed * speedMultiplier;
+    const mOrbit = moon.orbitR * zoom * proj.depthScale;
+    const mx = proj.sx + Math.cos(moon.angle) * mOrbit;
+    const my = proj.sy + Math.sin(moon.angle) * mOrbit * 0.6;
+    const mr = Math.max(2, moon.radius * zoom * proj.depthScale);
+
+    ctx.beginPath();
+    ctx.ellipse(proj.sx, proj.sy, mOrbit, mOrbit * 0.6, 0, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+
+    const moonLightX = mx - mr * 0.35;
+    const moonLightY = my - mr * 0.35;
+    const moonGrad = ctx.createRadialGradient(moonLightX, moonLightY, mr * 0.1, mx, my, mr * 1.15);
+    moonGrad.addColorStop(0, '#fdfcf7');
+    moonGrad.addColorStop(0.45, '#d0cec4');
+    moonGrad.addColorStop(1, '#56534b');
+    ctx.beginPath();
+    ctx.arc(mx, my, mr, 0, Math.PI * 2);
+    ctx.fillStyle = moonGrad;
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(70,68,62,0.32)';
+    ctx.beginPath();
+    ctx.arc(mx - mr * 0.22, my - mr * 0.18, mr * 0.28, 0, Math.PI * 2);
+    ctx.arc(mx + mr * 0.30, my + mr * 0.18, mr * 0.20, 0, Math.PI * 2);
+    ctx.fill();
+
+    if (isHovered || (zoomPunch.active && zoomPunch.focusedPlanet === p)) {
+      ctx.font = `${Math.round(9 * labelScale)}px Vazirmatn, Segoe UI, sans-serif`;
+      ctx.fillStyle = 'rgba(255,255,255,0.75)';
+      ctx.textAlign = 'center';
+      ctx.fillText('مانگ', mx, my - mr - 4 * labelScale);
+    }
+  }
+
+  // هەسارەی دەستکرد (تەنیا زەوی)
   if (p.satellite) {
     const sat = p.satellite;
     sat.angle += sat.speed * speedMultiplier;
@@ -2206,7 +2696,31 @@ function startAnimationLoop() {
   rafId = requestAnimationFrame(animate);
 }
 
-function animate() {
+let lastFrameTs = 0;
+let perfFrames = 0, perfAccum = 0, lastPerfStep = 0;
+
+function animate(ts) {
+  rafId = requestAnimationFrame(animate);
+  ts = ts || performance.now();
+
+  // سنووردارکردن بە ٦٠ فرەیم لە چرکەیەکدا (لەسەر شاشەی ١٢٠/١٤٤Hz زیادە کار ناکات)
+  const interval = 1000 / 60;
+  const elapsed = ts - lastFrameTs;
+  if (elapsed < interval - 1) return;
+  lastFrameTs = ts - (elapsed % interval);
+
+  // چاودێری خێرایی: ئەگەر ئامێرەکە لاواز بوو، کوالێتی خۆکار کەم دەکاتەوە
+  if (elapsed < 250) { perfAccum += elapsed; perfFrames++; }
+  if (perfFrames >= 90) {
+    const avg = perfAccum / perfFrames;
+    perfAccum = 0; perfFrames = 0;
+    if (avg > 24 && perfLevel < 2 && ts - lastPerfStep > 2500) {
+      perfLevel++;
+      lastPerfStep = ts;
+      if (perfLevel === 1) { dprCap = 1; resize(); }
+    }
+  }
+
   updateCameraEffects();
   ctx.clearRect(0, 0, W, H);
   planetScreenPositions = [];
@@ -2217,23 +2731,24 @@ function animate() {
   updateMeteors();
   drawMeteors();
 
-  updateComets();
-  drawComets();
+  if (perfLevel < 2) {
+    updateComets();
+    drawComets();
+  }
 
   planets.forEach(p => {
     p.angle += p.speed * speedMultiplier * 0.02;
   });
 
-  // ڕیزکردنی چینەکان بەپێی قووڵی (z) بۆ کاریگەری depth دروست
-  const orbitsSorted = [...planets].sort((a, b) => {
-    const za = project3D(...Object.values(orbitPoint(a.orbit, a.angle))).z;
-    const zb = project3D(...Object.values(orbitPoint(b.orbit, b.angle))).z;
-    return za - zb;
-  });
+  // ڕیزکردنی هەسارەکان بەپێی قووڵی (z) — تەنیا یەکجار بۆ هەر هەسارەیەک
+  const drawList = planets.map(p => {
+    const pt = orbitPoint(p.orbit, p.angle);
+    return { p, z: project3D(pt.x, pt.y, pt.z).z };
+  }).sort((a, b) => a.z - b.z);
 
-  orbitsSorted.forEach(p => drawOrbit3D(p.orbit, p));
+  drawOrbits();
   drawSun();
-  orbitsSorted.forEach(drawPlanet);
+  drawList.forEach(o => drawPlanet(o.p));
   drawClickPulses();
   updateAndDrawSupernova();
   const focusDim = zoomPunch.active ? zoomPunch.bumpValue * 0.75 : 0;
@@ -2245,7 +2760,6 @@ function animate() {
   drawSunProximityTint();
 
   time++;
-  rafId = requestAnimationFrame(animate);
 }
 
 if (!document.hidden) startAnimationLoop();
