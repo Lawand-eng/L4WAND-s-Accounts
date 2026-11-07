@@ -361,22 +361,43 @@
   @keyframes loadingSpin {
     to { transform: rotate(360deg); }
   }
+  /* دوگمەی زمان */
+  .controls { direction: rtl; }
+  #langBtn .lbl-short { display: none; }
+  html[dir="ltr"] .modal-link-item:hover { transform: translateX(3px); }
+  @media (max-width: 700px) {
+    #langBtn svg { display: none; }
+    #langBtn .lbl-short { display: inline; font-weight: 700; letter-spacing: .3px; font-size: 10px; }
+  }
+  /* مۆبایل: دوگمەی گەورەتر و ئایکۆنی ڕوون، لە ڕیزێکی ناوەڕاستدا */
+  @media (max-width: 700px) {
+    .controls { left: 0; right: 0; top: max(10px, env(safe-area-inset-top)); justify-content: center; gap: 6px; }
+    .btn { width: 40px; height: 40px; background: rgba(12,18,48,.92); border: 1px solid rgba(255,255,255,.25); color: rgba(255,255,255,.92); }
+    .btn svg { width: 20px; height: 20px; flex: none; display: block; }
+    #langBtn .lbl-short { font-size: 12px; }
+    .title { top: calc(max(10px, env(safe-area-inset-top)) + 54px); left: 50%; transform: translateX(-50%); max-width: 90%; text-align: center; font-size: 12px; }
+  }
+  @media (max-width: 420px) {
+    .controls { gap: 5px; }
+    .btn { width: 38px; height: 38px; }
+  }
 </style>
 </head>
 <body>
 <div id="loadingScreen">
   <div class="spinner"></div>
-  <div class="loadingText">چاوەڕێ بکە، سیستەمی خۆرین بار دەبێت...</div>
+  <div class="loadingText" id="loadingText">چاوەڕێ بکە، سیستەمی خۆرین بار دەبێت...</div>
 </div>
 <canvas id="canvas"></canvas>
 <div class="title">LAWAND'S ACCOUNTS ♟️</div>
-<div class="hint">کلیک لەسەر هەسارەکان بکە بۆ سەردانیکردنی ئەکاونتەکانم • دەفرەکە ڕابکێشە و ڕایوەشێنە بۆ تەقاندنەوەی • ڕابکێشە بۆ سووراندنی کامێرا • سکڕۆڵ بکە بۆ زووم • دوگمەی دەنگ چالاک بکە بۆ گوێگرتنی موزیکی ambient</div>
+<div class="hint" id="hintText">کلیک لەسەر هەسارەکان بکە بۆ سەردانیکردنی ئەکاونتەکانم • دەفرەکە ڕابکێشە و ڕایوەشێنە بۆ تەقاندنەوەی • ڕابکێشە بۆ سووراندنی کامێرا • سکڕۆڵ بکە بۆ زووم • دوگمەی دەنگ چالاک بکە بۆ گوێگرتنی موزیکی ambient</div>
 <div class="controls">
-  <div class="btn" id="listBtn" title="لیستی ئەکاونتەکان"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg><span>ئەکاونتەکان</span></div>
-  <div class="btn" id="shareBtn" title="شەیرکردن"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg><span>شەیر</span></div>
+  <div class="btn" id="langBtn" title="Switch to English"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg><span class="lbl-long" id="langLong">English</span><span class="lbl-short" id="langShort">EN</span></div>
+  <div class="btn" id="listBtn" title="لیستی ئەکاونتەکان"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg><span id="listLabel">ئەکاونتەکان</span></div>
+  <div class="btn" id="shareBtn" title="شەیرکردن"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg><span id="shareLabel">شەیر</span></div>
   <div class="btn" id="soundBtn" title="دەنگ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><span id="soundBtnLabel">دەنگ: ناچالاک</span></div>
   <div class="btn" id="speedBtn" title="خێرایی"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="speedBtnLabel">خێرایی: ١x</span></div>
-  <div class="btn" id="resetBtn" title="ڕیسێت کامێرا"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-5h5"/></svg><span>ڕیسێت</span></div>
+  <div class="btn" id="resetBtn" title="ڕیسێت کامێرا"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-2px;margin-left:4px"><path d="M3 12a9 9 0 1 1 3 6.7"/><path d="M3 17v-5h5"/></svg><span id="resetLabel">ڕیسێت</span></div>
 </div>
 <div id="planetTooltip" style="position:fixed;pointer-events:none;background:rgba(10,14,42,0.9);color:#fff;font-size:12px;padding:5px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.15);opacity:0;transform:translate(-50%,-130%);transition:opacity 0.15s;z-index:10;white-space:nowrap;"></div>
 <div id="exitFocusBtn" style="position:fixed;bottom:64px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.85);font-size:13px;background:rgba(20,24,52,0.75);padding:9px 18px;border-radius:20px;border:1px solid rgba(255,255,255,0.2);cursor:pointer;user-select:none;opacity:0;pointer-events:none;transition:opacity 0.25s;z-index:11;white-space:nowrap;">↺ گەڕانەوە بۆ دیمەنی گشتی</div>
@@ -391,8 +412,8 @@
       <div class="profile-wrap">
         <div class="profile-badge">♟️</div>
         <div class="profile-meta">
-          <h3>لاوەند کامەران</h3>
-          <p>پەرەپێدەر • شەتڕەنج • گەردوونناسی</p>
+          <h3 id="profileName">لاوەند کامەران</h3>
+          <p id="profileSub">پەرەپێدەر • شەتڕەنج • گەردوونناسی</p>
         </div>
       </div>
       <button class="modal-close" id="closeModalBtn" title="داخستن">&times;</button>
@@ -412,6 +433,11 @@ const planetTooltip = document.getElementById('planetTooltip');
 let W, H, cx, cy;
 let labelFontScale = 1;
 let sceneScale = 1;
+
+// زمان: 'ckb' = کوردی، 'en' = English (لە براوزەر هەڵدەگیرێت)
+let lang = 'ckb';
+try { const sv = localStorage.getItem('lang'); if (sv === 'en' || sv === 'ckb') lang = sv; } catch (e) {}
+function L(o) { return (lang === 'en' && o.en) ? o.en : o.name; }
 
 const IS_MOBILE = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (window.matchMedia && window.matchMedia('(max-width: 700px)').matches);
 let dprCap = IS_MOBILE ? 1.5 : 1.75;   // سنووری چڕی پیکسڵ بۆ خێرایی
@@ -441,7 +467,7 @@ resize();
 window.addEventListener('resize', resize);
 
 // خۆر (لە مۆبایل بچووکتر)
-const sun = { radius: window.innerWidth <= 700 ? 22 : 32, color: '#ffdd55', link: 'https://sigmadev.uk/6929813523', name: 'دەستی پێدا مەنێ' };
+const sun = { radius: window.innerWidth <= 700 ? 22 : 32, color: '#ffdd55', link: 'https://sigmadev.uk/6929813523', name: 'دەستی پێدا مەنێ', en: "Don't Touch Me" };
 
 /* ---------------- ئیستەر ئێگ: ٣ کرتەی دووبارە لەسەر خۆر ---------------- */
 let sunClickTimes = [];
@@ -548,6 +574,9 @@ const planets = [
   { orbit: 490, radius: 20, color: '#88eae0', color2: '#206b78', speed: 0.004, angle: Math.random() * 6.28, name: 'ئۆرانۆس', uranusRings: true, link: 'https://github.com/Lawand-eng', label: 'GitHub', glowColor: 'rgba(125,240,230,0.42)' },
   { orbit: 560, radius: 20, color: '#4d75e3', color2: '#121f5c', speed: 0.003, angle: Math.random() * 6.28, name: 'نپتون', neptuneStorm: true, link: 'https://discord.com/users/es7abxor', label: 'Discord', glowColor: 'rgba(75,120,255,0.48)' },
 ];
+
+const PLANET_EN = { 'عەتارد': 'Mercury', 'زوهڕە': 'Venus', 'زەوی': 'Earth', 'مریخ': 'Mars', 'موشتەری': 'Jupiter', 'زوحەل': 'Saturn', 'ئۆرانۆس': 'Uranus', 'نپتون': 'Neptune' };
+planets.forEach(p => { p.en = PLANET_EN[p.name]; });
 
 /* ---------------- تەکەکانی بەرد لەتەنیشت هەسارەکان ---------------- */
 function makeRockShape(baseSize) {
@@ -1711,7 +1740,7 @@ let speedIdx = 1;
 speedBtn.addEventListener('click', () => {
   speedIdx = (speedIdx + 1) % speeds.length;
   speedMultiplier = speeds[speedIdx];
-  document.getElementById('speedBtnLabel').textContent = `خێرایی: ${speedMultiplier}x`;
+  refreshLabels();
 });
 
 document.getElementById('resetBtn').addEventListener('click', () => {
@@ -1754,9 +1783,9 @@ if (linksModal) {
 function copyPageLink() {
   const url = window.location.href;
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(url).then(() => showToast('بەستەری پەڕە بە سەرکەوتوویی کۆپی کرا! ✨'));
+    navigator.clipboard.writeText(url).then(() => showToast(T('copied')));
   } else {
-    showToast('بەستەری پەڕە کۆپی کرا!');
+    showToast(T('copied'));
   }
 }
 
@@ -1766,7 +1795,7 @@ if (shareBtn) {
     if (navigator.share) {
       navigator.share({
         title: "LAWAND'S ACCOUNTS ♟️",
-        text: "سیستەمی خۆرینی سێ-ڕەهەندی — ئەکاونتەکانی لاوەند",
+        text: T('shareText'),
         url: window.location.href
       }).catch(() => {});
     } else {
@@ -1777,7 +1806,9 @@ if (shareBtn) {
 
 // پڕکردنەوەی لیستی ئەکاونتەکان لە ناو مۆداڵ
 const modalLinksContainer = document.getElementById('modalLinksContainer');
-if (modalLinksContainer) {
+function renderModalLinks() {
+  if (!modalLinksContainer) return;
+  modalLinksContainer.innerHTML = '';
   planets.forEach(p => {
     const a = document.createElement('a');
     a.className = 'modal-link-item';
@@ -1789,7 +1820,7 @@ if (modalLinksContainer) {
         <span class="link-dot" style="background:${p.color};color:${p.color}"></span>
         <div class="link-texts">
           <span class="link-label-title">${p.label}</span>
-          <span class="link-sub-desc">هەسارەی ${p.name}</span>
+          <span class="link-sub-desc">${lang === 'en' ? 'Planet ' + p.en : 'هەسارەی ' + p.name}</span>
         </div>
       </div>
       <span class="link-arrow">↗</span>
@@ -1980,11 +2011,10 @@ soundBtn.addEventListener('click', () => {
   ambientOn = !ambientOn;
   if (ambientOn) {
     startAmbient();
-    document.getElementById('soundBtnLabel').textContent = 'دەنگ: چالاک 🔊';
   } else {
     stopAmbient();
-    document.getElementById('soundBtnLabel').textContent = 'دەنگ: ناچالاک 🔇';
   }
+  refreshLabels();
 });
 
 /* ---------------- وێنەکێشان ---------------- */
@@ -2162,9 +2192,9 @@ function drawSun() {
   ctx.lineJoin = 'round';
   ctx.lineWidth = 3;
   ctx.strokeStyle = 'rgba(40,10,0,0.75)';
-  ctx.strokeText(sun.name, p.sx, p.sy + baseR + 26 * sunLabelScale);
+  ctx.strokeText(L(sun), p.sx, p.sy + baseR + 26 * sunLabelScale);
   ctx.fillStyle = 'rgba(255,235,190,0.95)';
-  ctx.fillText(sun.name, p.sx, p.sy + baseR + 26 * sunLabelScale);
+  ctx.fillText(L(sun), p.sx, p.sy + baseR + 26 * sunLabelScale);
 }
 
 function traceOrbit(orbit) {
@@ -2410,7 +2440,7 @@ function drawPlanet(p) {
       ctx.font = `${Math.round(11 * labelFontScale)}px Vazirmatn, Segoe UI, sans-serif`;
       ctx.fillStyle = 'rgba(255,255,255,0.75)';
       ctx.textAlign = 'center';
-      ctx.fillText(p.name, proj.sx, proj.sy - 8 * labelFontScale);
+      ctx.fillText(L(p), proj.sx, proj.sy - 8 * labelFontScale);
     }
     return;
   }
@@ -2581,9 +2611,9 @@ function drawPlanet(p) {
   ctx.lineWidth = 3;
   ctx.strokeStyle = 'rgba(0,0,0,0.6)';
   ctx.font = `bold ${Math.round(15 * labelScale)}px Vazirmatn, Segoe UI, sans-serif`;
-  ctx.strokeText(p.name, proj.sx, proj.sy - r - 10 * labelScale);
+  ctx.strokeText(L(p), proj.sx, proj.sy - r - 10 * labelScale);
   ctx.fillStyle = isHovered ? '#ffffff' : 'rgba(255,255,255,0.92)';
-  ctx.fillText(p.name, proj.sx, proj.sy - r - 10 * labelScale);
+  ctx.fillText(L(p), proj.sx, proj.sy - r - 10 * labelScale);
 
   if (p.label) {
     ctx.font = `600 ${Math.round(11 * labelScale)}px Vazirmatn, Segoe UI, sans-serif`;
@@ -2656,7 +2686,7 @@ function drawPlanet(p) {
       ctx.font = `${Math.round(9 * labelScale)}px Vazirmatn, Segoe UI, sans-serif`;
       ctx.fillStyle = 'rgba(255,255,255,0.75)';
       ctx.textAlign = 'center';
-      ctx.fillText('مانگ', mx, my - mr - 4 * labelScale);
+      ctx.fillText(lang === 'en' ? 'Moon' : 'مانگ', mx, my - mr - 4 * labelScale);
     }
   }
 
@@ -2772,6 +2802,78 @@ function animate(ts) {
 
   time++;
 }
+
+/* ---------------- وەرگێڕان (کوردی / English) ---------------- */
+const STR = {
+  ckb: {
+    loading: 'چاوەڕێ بکە، سیستەمی خۆرین بار دەبێت...',
+    hint: 'کلیک لەسەر هەسارەکان بکە بۆ سەردانیکردنی ئەکاونتەکانم • دەفرەکە ڕابکێشە و ڕایوەشێنە بۆ تەقاندنەوەی • ڕابکێشە بۆ سووراندنی کامێرا • سکڕۆڵ بکە بۆ زووم • دوگمەی دەنگ چالاک بکە بۆ گوێگرتنی موزیکی ambient',
+    list: 'ئەکاونتەکان', share: 'شەیر', reset: 'ڕیسێت', speed: 'خێرایی',
+    soundOn: 'دەنگ: چالاک 🔊', soundOff: 'دەنگ: ناچالاک 🔇',
+    exit: '↺ گەڕانەوە بۆ دیمەنی گشتی',
+    secret: '🌟 نهێنیت دۆزییەوە! سوپاس بۆ گەڕانت بەدوای ئەستێرەکاندا 🌟',
+    profileName: 'لاوەند کامەران', profileSub: 'پەرەپێدەر • شەتڕەنج • گەردوونناسی',
+    copyBtn: '🔗 کۆپیکردنی لینکی پەڕە', copied: 'بەستەری پەڕە بە سەرکەوتوویی کۆپی کرا! ✨',
+    shareText: 'سیستەمی خۆرینی سێ-ڕەهەندی — ئەکاونتەکانی لاوەند',
+    listTitle: 'لیستی ئەکاونتەکان', shareTitle: 'شەیرکردن', soundTitle: 'دەنگ', speedTitle: 'خێرایی', resetTitle: 'ڕیسێت کامێرا', closeTitle: 'داخستن',
+    langLong: 'English', langShort: 'EN', langTitle: 'Switch to English'
+  },
+  en: {
+    loading: 'Please wait, loading the solar system...',
+    hint: 'Click a planet to visit my accounts • Drag the UFO and shake it to blow it up • Drag to rotate the camera • Scroll or pinch to zoom • Turn on sound for ambient music',
+    list: 'Accounts', share: 'Share', reset: 'Reset', speed: 'Speed',
+    soundOn: 'Sound: On 🔊', soundOff: 'Sound: Off 🔇',
+    exit: '↺ Back to overview',
+    secret: '🌟 You found the secret! Thanks for exploring the stars 🌟',
+    profileName: 'Lawand Kamaran', profileSub: 'Developer • Chess • Astronomy',
+    copyBtn: '🔗 Copy page link', copied: 'Link copied successfully! ✨',
+    shareText: "Interactive 3D solar system — Lawand's accounts",
+    listTitle: 'Accounts list', shareTitle: 'Share', soundTitle: 'Sound', speedTitle: 'Speed', resetTitle: 'Reset camera', closeTitle: 'Close',
+    langLong: 'کوردی', langShort: 'KU', langTitle: 'گۆڕین بۆ کوردی'
+  }
+};
+function T(k) { return STR[lang][k]; }
+
+function refreshLabels() {
+  document.getElementById('speedBtnLabel').textContent = `${T('speed')}: ${speedMultiplier}x`;
+  document.getElementById('soundBtnLabel').textContent = ambientOn ? T('soundOn') : T('soundOff');
+}
+
+function applyLang() {
+  const root = document.documentElement;
+  root.lang = lang === 'en' ? 'en' : 'ckb';
+  root.dir = lang === 'en' ? 'ltr' : 'rtl';
+  const setText = (id, k) => { const el = document.getElementById(id); if (el) el.textContent = T(k); };
+  setText('loadingText', 'loading');
+  setText('hintText', 'hint');
+  setText('listLabel', 'list');
+  setText('shareLabel', 'share');
+  setText('resetLabel', 'reset');
+  setText('exitFocusBtn', 'exit');
+  setText('secretMessage', 'secret');
+  setText('profileName', 'profileName');
+  setText('profileSub', 'profileSub');
+  setText('copyLinkBtn', 'copyBtn');
+  setText('langLong', 'langLong');
+  setText('langShort', 'langShort');
+  const setTitle = (id, k) => { const el = document.getElementById(id); if (el) el.title = T(k); };
+  setTitle('listBtn', 'listTitle');
+  setTitle('shareBtn', 'shareTitle');
+  setTitle('soundBtn', 'soundTitle');
+  setTitle('speedBtn', 'speedTitle');
+  setTitle('resetBtn', 'resetTitle');
+  setTitle('closeModalBtn', 'closeTitle');
+  setTitle('langBtn', 'langTitle');
+  renderModalLinks();
+  refreshLabels();
+  try { localStorage.setItem('lang', lang); } catch (e) {}
+}
+
+document.getElementById('langBtn').addEventListener('click', () => {
+  lang = (lang === 'en') ? 'ckb' : 'en';
+  applyLang();
+});
+applyLang();
 
 if (!document.hidden) startAnimationLoop();
 </script>
