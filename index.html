@@ -8,15 +8,16 @@
 <meta property="og:title" content="LAWAND'S ACCOUNTS ♟️">
 <meta property="og:description" content="سیستەمی خۆرینی سێ-ڕەهەندی — کرتە لەسەر هەسارەکان بکە بۆ سەردانیکردنی هەموو ئەکاونتەکانم">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://sigmadev.uk/">
-<meta property="og:image" content="https://sigmadev.uk/og-image.jpg">
+<meta property="og:url" content="https://lawand-eng.github.io/L4WAND-s-Accounts/">
+<meta property="og:image" content="https://lawand-eng.github.io/L4WAND-s-Accounts/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="LAWAND'S ACCOUNTS - سیستەمی خۆرینی سێ-ڕەهەندی">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="LAWAND'S ACCOUNTS ♟️">
 <meta name="twitter:description" content="سیستەمی خۆرینی سێ-ڕەهەندی — کرتە لەسەر هەسارەکان بکە بۆ سەردانیکردنی هەموو ئەکاونتەکانم">
-<meta name="twitter:image" content="https://sigmadev.uk/og-image.jpg">
+<meta name="twitter:image" content="https://lawand-eng.github.io/L4WAND-s-Accounts/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -432,15 +433,15 @@ function resize() {
   cx = W / 2;
   cy = H / 2;
   const mobile = W <= 700;
-  // پانتایی فراوانکراو بۆ هەسارەکان تا لە یەکتری دووربن و بە جوانی لە شاشەکەدا دەربکەون
-  sceneScale = mobile ? Math.min(1, (Math.min(W, H) * 0.44) / 560) : Math.min(1, (Math.min(W, H) * 0.46) / 520);
-  labelFontScale = mobile ? (W <= 420 ? 0.92 : 1.0) : 1;
+  // لە مۆبایل ئۆربیتەکان بە فەنکشنی orbitRadius() دابەش دەکرێن (sceneScale = 1)
+  sceneScale = mobile ? 1 : Math.min(1, (Math.min(W, H) * 0.46) / 520);
+  labelFontScale = mobile ? 0.72 : 1;
 }
 resize();
 window.addEventListener('resize', resize);
 
-// خۆر
-const sun = { radius: 32, color: '#ffdd55', link: 'https://sigmadev.uk/6929813523', name: 'دەستی پێدا مەنێ' };
+// خۆر (لە مۆبایل بچووکتر)
+const sun = { radius: window.innerWidth <= 700 ? 22 : 32, color: '#ffdd55', link: 'https://sigmadev.uk/6929813523', name: 'دەستی پێدا مەنێ' };
 
 /* ---------------- ئیستەر ئێگ: ٣ کرتەی دووبارە لەسەر خۆر ---------------- */
 let sunClickTimes = [];
@@ -1277,11 +1278,11 @@ function drawUFO() {
 }
 
 /* ---------------- کامێرای سێ-ڕەهەندی ---------------- */
+const IS_NARROW = window.innerWidth <= 700;
+const DEFAULT_ELEVATION = IS_NARROW ? 0.95 : 0.45; // لە مۆبایل لە سەرەوەوە دەبینرێت
 let camAzimuth = -0.5;   // سوڕانەوە بە دەوری تەوەری Y (چەپ/ڕاست)
-let camElevation = 0.45; // سوڕانەوە بە دەوری تەوەری X (سەرەوە/خوارەوە)
+let camElevation = DEFAULT_ELEVATION; // سوڕانەوە بە دەوری تەوەری X (سەرەوە/خوارەوە)
 let baseZoom = 1;  // ئەو زووم-ەی بەکارهێنەر بە سکڕۆڵ/پینچ کۆنترۆڵی دەکات
-// لە مۆبایلدا سیستەمەکە بە شێوەیەکی گونجاوتر دەست پێ دەکات
-if (window.matchMedia && window.matchMedia('(max-width: 700px)').matches) baseZoom = 1.08;
 let zoom = 1;       // زووم-ی کۆتایی کە لە پرۆژێکشندا بەکاردێت (باسزووم × کاریگەری کامێرا)
 const ZOOM_MIN = 0.35, ZOOM_MAX = 3.2;
 
@@ -1478,8 +1479,16 @@ function project3D(x, y, z) {
 }
 updateCamTrig();
 
+// نیوەتیرەی ئۆربیت: لە دیسکتۆپ وەک جاران، لە مۆبایل دابەشکراو لە نێوان خۆر و لێوارەکانی شاشە
+function orbitRadius(orbit) {
+  if (W > 700) return orbit * sceneScale;
+  const minR = sun.radius + 26;                 // یەکەم ئۆربیت لە دەرەوەی خۆر
+  const maxR = Math.max(minR + 60, W / 2 - 34); // دوایین ئۆربیت لە ناو پانی شاشە
+  return minR + (orbit - 85) / (560 - 85) * (maxR - minR);
+}
+
 function orbitPoint(orbit, angle) {
-  const r = orbit * sceneScale;
+  const r = orbitRadius(orbit);
   return { x: Math.cos(angle) * r, y: 0, z: Math.sin(angle) * r };
 }
 
@@ -1707,7 +1716,7 @@ speedBtn.addEventListener('click', () => {
 
 document.getElementById('resetBtn').addEventListener('click', () => {
   camAzimuth = -0.5;
-  camElevation = 0.45;
+  camElevation = DEFAULT_ELEVATION;
   baseZoom = 1;
 });
 
@@ -2162,7 +2171,7 @@ function traceOrbit(orbit) {
   const SEGMENTS = 56;
   for (let i = 0; i <= SEGMENTS; i++) {
     const a = (i / SEGMENTS) * Math.PI * 2;
-    const r = orbit * sceneScale;
+    const r = orbitRadius(orbit);
     const proj = project3D(Math.cos(a) * r, 0, Math.sin(a) * r);
     if (i === 0) ctx.moveTo(proj.sx, proj.sy);
     else ctx.lineTo(proj.sx, proj.sy);
@@ -2381,7 +2390,9 @@ function getPlanetOverlay() {
 function drawPlanet(p) {
   const pt = orbitPoint(p.orbit, p.angle);
   const proj = project3D(pt.x, pt.y, pt.z);
-  const visualScale = sceneScale < 1 ? Math.max(1.05, sceneScale + 0.35) : 1.15;
+  const NARROW = W <= 700;
+  const visualScale = NARROW ? 0.55 : (sceneScale < 1 ? Math.max(1.05, sceneScale + 0.35) : 1.15);
+  const satMoonScale = NARROW ? 0.55 : 1;
   const r = p.radius * visualScale * zoom * proj.depthScale;
 
   planetScreenPositions.push({ x: proj.sx, y: proj.sy, radius: Math.max(r, 7), planet: p });
@@ -2582,8 +2593,8 @@ function drawPlanet(p) {
     ctx.fillText(p.label, proj.sx, proj.sy + r + 16 * labelScale);
   }
 
-  // تەکە بەردەکان
-  if (perfLevel < 2) {
+  // تەکە بەردەکان (لە مۆبایل نیشان نادرێن)
+  if (perfLevel < 2 && W > 700) {
     p.rocks.forEach(rock => {
       rock.angle += rock.speed * speedMultiplier;
       rock.rot += rock.rotSpeed * speedMultiplier;
@@ -2613,10 +2624,10 @@ function drawPlanet(p) {
   if (p.moon) {
     const moon = p.moon;
     moon.angle += moon.speed * speedMultiplier;
-    const mOrbit = moon.orbitR * zoom * proj.depthScale;
+    const mOrbit = moon.orbitR * zoom * proj.depthScale * satMoonScale;
     const mx = proj.sx + Math.cos(moon.angle) * mOrbit;
     const my = proj.sy + Math.sin(moon.angle) * mOrbit * 0.6;
-    const mr = Math.max(2, moon.radius * zoom * proj.depthScale);
+    const mr = Math.max(2, moon.radius * zoom * proj.depthScale * satMoonScale);
 
     ctx.beginPath();
     ctx.ellipse(proj.sx, proj.sy, mOrbit, mOrbit * 0.6, 0, 0, Math.PI * 2);
@@ -2654,8 +2665,8 @@ function drawPlanet(p) {
     const sat = p.satellite;
     sat.angle += sat.speed * speedMultiplier;
     sat.rot += 0.012 * speedMultiplier;
-    const sx = proj.sx + Math.cos(sat.angle) * sat.orbitR * zoom * proj.depthScale;
-    const sy = proj.sy + Math.sin(sat.angle) * sat.orbitR * zoom * proj.depthScale * 0.6;
+    const sx = proj.sx + Math.cos(sat.angle) * sat.orbitR * zoom * proj.depthScale * satMoonScale;
+    const sy = proj.sy + Math.sin(sat.angle) * sat.orbitR * zoom * proj.depthScale * 0.6 * satMoonScale;
     drawSatelliteIcon(sx, sy, 2.6 * zoom * proj.depthScale, sat.rot);
   }
 }
